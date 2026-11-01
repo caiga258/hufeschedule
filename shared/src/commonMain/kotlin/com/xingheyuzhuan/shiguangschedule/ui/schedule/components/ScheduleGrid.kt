@@ -27,7 +27,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.ScheduleModeProto
+import com.xingheyuzhuan.shiguangschedule.ui.schedule.model.MergedCourseBlock
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringArrayResource
 import shiguangschedule.shared.generated.resources.Res
@@ -60,7 +62,11 @@ fun ScheduleGrid(
 
         val displayDaysCount = displayDays.size
         val is24HourMode = style.scheduleMode == ScheduleModeProto.TIME_24H_MODE
-        val maxGridSections = if (is24HourMode) 24 else viewState.timeSlots.size
+        val maxGridSections = if (is24HourMode) 24 else viewState.displayRows.size
+
+        // 存在错峰行时给左侧时间列留出足够宽度，避免“一/二教等”等标签被裁切
+        val hasStaggerRows = !is24HourMode && viewState.displayRows.any { it.isStaggered }
+        val effectiveTimeColumnWidth = if (hasStaggerRows) maxOf(style.timeColumnWidth, 56.dp) else style.timeColumnWidth
 
         val totalGridHeight = style.sectionHeight * maxGridSections
         val gridLineColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
@@ -70,6 +76,64 @@ fun ScheduleGrid(
             calculateSingleSchedulables(viewState.mergedCourses, viewState.firstDayOfWeek, viewState.showWeekends)
         }
         val sectionHeightPx = with(density) { style.sectionHeight.toPx() }
+
+        // 显示行 -> 逻辑节次：交错行只影响展示，保存课程时仍使用原来的节次编号
+        fun logicalSectionAtRow(rowIndex: Int): Int {
+            val rows = viewState.displayRows
+            if (is24HourMode || rows.isEmpty()) return rowIndex + 1
+            return rows.getOrNull(rowIndex)?.section ?: (rowIndex + 1)
+        }
+
+        // 拖动整块：按目标行所在节次移动，保持课程原本跨越的节次数
+        fun actionSpanForMove(block: MergedCourseBlock, targetStartOffset: Float): Pair<Float, Float> {
+            val rows = viewState.displayRows
+            val fallback = targetStartOffset to (targetStartOffset + 1f)
+            if (is24HourMode || rows.isEmpty()) return fallback
+
+            val course = block.courses.firstOrNull()?.course ?: return fallback
+            val originalStart = course.startSection ?: return fallback
+            val originalEnd = course.endSection ?: return fallback
+            val maxSection = maxOf(viewState.timeSlots.size, 1)
+            val duration = (originalEnd - originalStart).coerceAtLeast(0)
+
+            val startRow = targetStartOffset.roundToInt().coerceIn(0, rows.size - 1)
+            val newStart = rows[startRow].section.coerceIn(1, maxSection)
+            val newEnd = (newStart + duration).coerceIn(newStart, maxSection)
+            return (newStart - 1).toFloat() to newEnd.toFloat()
+        }
+
+        // 拉伸上下边界：上边界换算为开始节次，下边界换算为结束节次
+        fun actionSpanForResize(
+            block: MergedCourseBlock,
+            newStartOffset: Float,
+            newEndOffset: Float,
+            previousStartOffset: Float,
+            previousEndOffset: Float
+        ): Pair<Float, Float> {
+            val rows = viewState.displayRows
+            val fallback = newStartOffset to newEndOffset
+            if (is24HourMode || rows.isEmpty()) return fallback
+
+            val course = block.courses.firstOrNull()?.course ?: return fallback
+            val maxSection = maxOf(viewState.timeSlots.size, 1)
+            var startSection = course.startSection ?: 1
+            var endSection = course.endSection ?: 1
+
+            if (newStartOffset.roundToInt() != previousStartOffset.roundToInt()) {
+                val startRow = newStartOffset.roundToInt().coerceIn(0, rows.size - 1)
+                startSection = rows[startRow].section.coerceIn(1, maxSection)
+            }
+            if (newEndOffset.roundToInt() != previousEndOffset.roundToInt()) {
+                val endRow = (newEndOffset.roundToInt() - 1).coerceIn(0, rows.size - 1)
+                endSection = rows[endRow].section.coerceIn(1, maxSection)
+            }
+            if (startSection > endSection) {
+                val temp = startSection
+                startSection = endSection
+                endSection = temp
+            }
+            return (startSection - 1).toFloat() to endSection.toFloat()
+        }
 
         var activeDragHour by remember { mutableStateOf<Int?>(null) }
         var activeDragMinuteStr by remember { mutableStateOf<String?>(null) }
@@ -169,7 +233,19 @@ fun ScheduleGrid(
         }
 
         Column(Modifier.fillMaxSize()) {
-            DayHeader(style, displayDays, viewState.dates, viewState.currentYear, viewState.currentWeek, viewState.todayIndex, gridLineColor, pageTextColor, pageSubTextColor, strokeWidthPx)
+            DayHeader(
+                style = style,
+                displayDays = displayDays,
+                dates = viewState.dates,
+                currentYear = viewState.currentYear,
+                currentWeek = viewState.currentWeek,
+                todayIndex = viewState.todayIndex,
+                lineColor = gridLineColor,
+                textColor = pageTextColor,
+                subTextColor = pageSubTextColor,
+                strokeWidthPx = strokeWidthPx,
+                timeColumnWidth = effectiveTimeColumnWidth
+            )
 
             Row(
                 modifier = Modifier
@@ -178,13 +254,14 @@ fun ScheduleGrid(
                     .verticalScroll(state = state.gridScrollState, enabled = state.expandedItem == null)
             ) {
                 TimeColumn(
-                    style = style, timeSlots = viewState.timeSlots, maxGridSections = maxGridSections,
+                    style = style, displayRows = viewState.displayRows, maxGridSections = maxGridSections,
                     is24HourMode = is24HourMode, onTimeSlotClicked = { actions.onTimeSlotClicked() },
                     modifier = Modifier.height(totalGridHeight), lineColor = gridLineColor,
-                    currentSectionIndex = viewState.currentSectionIndex, textColor = pageTextColor,
+                    currentRowIndices = viewState.currentRowIndices, textColor = pageTextColor,
                     subTextColor = pageSubTextColor, strokeWidthPx = strokeWidthPx,
                     activeDragHour = activeDragHour,
-                    activeDragMinuteStr = activeDragMinuteStr
+                    activeDragMinuteStr = activeDragMinuteStr,
+                    timeColumnWidth = effectiveTimeColumnWidth
                 )
 
                 Layout(
@@ -260,7 +337,8 @@ fun ScheduleGrid(
                                                                 state.bodyDragOffsetX = targetX - initialX
                                                                 state.bodyDragOffsetY = (targetStart - intent.initialStartSection) * sectionHeightPx
 
-                                                                actions.onCourseMovedWithinGrid(intent.parentBlock, targetDay, targetStart, targetEnd)
+                                                                val (actionStart, actionEnd) = actionSpanForMove(intent.parentBlock, targetStart)
+                                                                actions.onCourseMovedWithinGrid(intent.parentBlock, targetDay, actionStart, actionEnd)
                                                             }
                                                         }
                                                     },
@@ -348,7 +426,14 @@ fun ScheduleGrid(
                                                     state.bottomHandleDragOffsetY = (finalEnd - currentItem.endSection) * sectionHeightPx
                                                 }
                                                 if (finalStart != currentItem.startSection || finalEnd != currentItem.endSection) {
-                                                    actions.onCourseTimeAdjusted(currentItem.parentBlock, finalStart, finalEnd)
+                                                    val (actionStart, actionEnd) = actionSpanForResize(
+                                                        currentItem.parentBlock,
+                                                        finalStart,
+                                                        finalEnd,
+                                                        currentItem.startSection,
+                                                        currentItem.endSection
+                                                    )
+                                                    actions.onCourseTimeAdjusted(currentItem.parentBlock, actionStart, actionEnd)
                                                 }
                                             }
                                         }
@@ -381,7 +466,10 @@ fun ScheduleGrid(
                                 }
                                 val dayIdx = (offset.x / (size.width / displayDaysCount)).toInt().coerceIn(0, displayDaysCount - 1)
                                 val secIdx = (offset.y / sectionHeightPx).toInt().coerceIn(0, maxGridSections - 1)
-                                actions.onGridCellClicked(mapDisplayIndexToDay(dayIdx, viewState.firstDayOfWeek), if (is24HourMode) secIdx else (secIdx + 1))
+                                actions.onGridCellClicked(
+                                    mapDisplayIndexToDay(dayIdx, viewState.firstDayOfWeek),
+                                    if (is24HourMode) secIdx else logicalSectionAtRow(secIdx)
+                                )
                             }
                         }
                 ) { measurables, constraints ->

@@ -54,8 +54,10 @@ import shiguangschedule.shared.generated.resources.item_language_settings
 import shiguangschedule.shared.generated.resources.item_open_source_licenses
 import shiguangschedule.shared.generated.resources.item_start_screen_settings
 import shiguangschedule.shared.generated.resources.item_update_repo
+import shiguangschedule.shared.generated.resources.item_web_debug
 import shiguangschedule.shared.generated.resources.label_version_prefix
 import shiguangschedule.shared.generated.resources.language_24px
+import shiguangschedule.shared.generated.resources.link_24px
 import shiguangschedule.shared.generated.resources.list_alt_24px
 import shiguangschedule.shared.generated.resources.palette_24px
 import shiguangschedule.shared.generated.resources.people_alt_24px
@@ -170,6 +172,15 @@ fun MoreOptionsScreen(
                         isDeveloperModeEnabled = isDeveloperModeEnabled,
                         onDeveloperModeChanged = { viewModel.onDeveloperModeChanged(it) }
                     )
+
+                    // 网页调试入口（仅开发者模式可见）：输入任意网址，用于适配新的教务系统
+                    if (isDeveloperModeEnabled) {
+                        SettingListItem(
+                            icon = vectorResource(Res.drawable.link_24px),
+                            title = stringResource(Res.string.item_web_debug),
+                            onClick = { onNavigate(Destination.WebView()) }
+                        )
+                    }
 
                     // 检查更新
                     SettingListItem(

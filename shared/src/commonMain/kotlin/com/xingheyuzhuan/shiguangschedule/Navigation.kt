@@ -94,6 +94,22 @@ val Destination.isMainScreen: Boolean
     get() = this is Destination.MainDestination
 
 /**
+ * 底部导航的三个一级页面，顺序就是导航栏从左到右的顺序。
+ *
+ * 一级页面的切换动画和手指横滑都以这个顺序为准：
+ * 往右边的页面切 = 新页面从右侧滑入，往左边的页面切 = 新页面从左侧滑入。
+ */
+val MainTabDestinations: List<Destination> = listOf(
+    Destination.TodaySchedule,
+    Destination.CourseSchedule,
+    Destination.Settings
+)
+
+/** 该页面在一级页面里的位置（0 起）；二级页面返回 -1。 */
+val Destination.mainTabIndex: Int
+    get() = MainTabDestinations.indexOfFirst { it == this }
+
+/**
  * 配置并生成包含所有 Destination 派生类的 SerializersModule
  */
 val navSerializersModule = SerializersModule {

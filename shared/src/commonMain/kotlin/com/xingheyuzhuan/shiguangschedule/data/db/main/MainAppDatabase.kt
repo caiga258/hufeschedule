@@ -21,11 +21,12 @@ import com.xingheyuzhuan.shiguangschedule.data.di.AppStorage
         TimeTableCombo::class,
         TimeTableComboRule::class
     ],
-    version = 7,
+    version = 8,
     autoMigrations = [
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5, spec = MainAppDatabase.RemoveAppSettingsSpec::class),
         AutoMigration(from = 6, to = 7)
+        // 7 -> 8 是纯数据迁移（旧 13 节默认作息 -> 新 12 节），见 MIGRATION_7_8
     ],
     exportSchema = true
 )

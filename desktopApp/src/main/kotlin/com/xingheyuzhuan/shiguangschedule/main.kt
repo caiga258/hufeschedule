@@ -55,7 +55,7 @@ fun main() {
     application {
         Window(
             onCloseRequest = ::exitApplication,
-            title = "shiguangschedule",
+            title = "财院课程表",
         ) {
             if (fatalError != null) {
                 SelectionContainer(

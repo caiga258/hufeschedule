@@ -39,11 +39,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.model.MergedCourseBlock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -81,11 +83,12 @@ data class ScheduleGridViewState(
     val currentYear: String,
     val currentWeek: String? = null,
     val timeSlots: List<TimeSlot>,
+    val displayRows: List<StaggeredSchedule.DisplayRow>,
     val mergedCourses: List<MergedCourseBlock>,
     val showWeekends: Boolean,
     val todayIndex: Int,
     val firstDayOfWeek: Int,
-    val currentSectionIndex: Int = -1
+    val currentRowIndices: Set<Int> = emptySet()
 )
 
 /**
@@ -164,7 +167,8 @@ fun DayHeader(
     lineColor: Color,
     textColor: Color,
     subTextColor: Color,
-    strokeWidthPx: Float
+    strokeWidthPx: Float,
+    timeColumnWidth: Dp = style.timeColumnWidth
 ) {
     BoxWithConstraints(Modifier.fillMaxWidth().height(style.dayHeaderHeight)) {
         val shouldShowDate = !style.hideDateUnderDay && maxHeight >= 42.dp
@@ -172,7 +176,7 @@ fun DayHeader(
         Row(Modifier.fillMaxSize()) {
             Box(
                 modifier = Modifier
-                    .width(style.timeColumnWidth)
+                    .width(timeColumnWidth)
                     .fillMaxHeight()
                     .drawBehind {
                         if (!style.hideGridLines) {
@@ -276,18 +280,19 @@ fun DayHeader(
 @Composable
 fun TimeColumn(
     style: ScheduleGridStyleComposed,
-    timeSlots: List<TimeSlot>,
+    displayRows: List<StaggeredSchedule.DisplayRow>,
     maxGridSections: Int,
     is24HourMode: Boolean,
     onTimeSlotClicked: () -> Unit,
     modifier: Modifier,
     lineColor: Color,
-    currentSectionIndex: Int = -1,
+    currentRowIndices: Set<Int> = emptySet(),
     textColor: Color,
     subTextColor: Color,
     strokeWidthPx: Float,
     activeDragHour: Int? = null,
-    activeDragMinuteStr: String? = null
+    activeDragMinuteStr: String? = null,
+    timeColumnWidth: Dp = style.timeColumnWidth
 ) {
     val currentHour = remember {
         try {
@@ -297,12 +302,15 @@ fun TimeColumn(
         }
     }
 
-    Column(modifier.width(style.timeColumnWidth)) {
+    // 存在错峰拆行时，时间列改用更紧凑的“单行起止时间”，避免行高不够导致时间被裁切
+    val compactTimeLayout = !is24HourMode && displayRows.any { it.isStaggered }
+
+    Column(modifier.width(timeColumnWidth)) {
         for (index in 0 until maxGridSections) {
             val isCurrentHourActive = if (is24HourMode) {
-                currentHour == index && currentSectionIndex != -1
+                currentHour == index && currentRowIndices.isNotEmpty()
             } else {
-                index + 1 == currentSectionIndex
+                index in currentRowIndices
             }
 
             BoxWithConstraints(
@@ -352,24 +360,43 @@ fun TimeColumn(
                             color = if (isCurrentHourActive) MaterialTheme.colorScheme.primary else textColor
                         )
                     } else {
-                        val slot = timeSlots.getOrNull(index)
-                        if (slot != null) {
+                        val row = displayRows.getOrNull(index)
+                        if (row != null) {
                             Text(
-                                text = slot.alias ?: slot.number.toString(),
-                                fontSize = if (h < 32.dp) 11.sp else 14.sp,
+                                text = row.alias ?: row.section.toString(),
+                                fontSize = when {
+                                    h < 32.dp -> 11.sp
+                                    compactTimeLayout -> 13.sp
+                                    else -> 14.sp
+                                },
                                 fontWeight = FontWeight.Bold,
                                 color = textColor,
                                 overflow = TextOverflow.Ellipsis
                             )
+
                             if (!style.hideSectionTime) {
                                 when {
+                                    compactTimeLayout && h >= 36.dp -> {
+                                        Spacer(Modifier.height(2.dp))
+                                        Text(
+                                            text = "${row.startTime}-${row.endTime}",
+                                            fontSize = 8.sp,
+                                            color = subTextColor,
+                                            maxLines = 1
+                                        )
+                                    }
                                     h >= 52.dp -> {
                                         Spacer(Modifier.height(2.dp))
-                                        TimeText(slot.startTime, subTextColor)
-                                        TimeText(slot.endTime, subTextColor)
+                                        TimeText(row.startTime, subTextColor)
+                                        TimeText(row.endTime, subTextColor)
                                     }
                                     h >= 38.dp -> {
-                                        Text(text = "${slot.startTime}-${slot.endTime}", fontSize = 8.sp, color = subTextColor, maxLines = 1)
+                                        Text(
+                                            text = "${row.startTime}-${row.endTime}",
+                                            fontSize = 8.sp,
+                                            color = subTextColor,
+                                            maxLines = 1
+                                        )
                                     }
                                 }
                             }

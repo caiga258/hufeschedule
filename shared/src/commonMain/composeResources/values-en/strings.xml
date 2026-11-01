@@ -1,6 +1,6 @@
 <resources>
     <!-- Basic App Information -->
-    <string name="app_name">Shiguang Schedule</string>
+    <string name="app_name">Caiyuan Schedule</string>
 
     <!-- Common Buttons and Messages -->
     <string name="action_confirm">Confirm</string>
@@ -10,6 +10,7 @@
     <string name="a11y_edit">Edit</string>
     <string name="a11y_back">Back</string>
     <string name="action_add">Add</string>
+    <string name="action_import">Import</string>
     <string name="action_next_step">Next</string>
     <string name="title_loading">Loading...</string>
     <string name="text_error">Error</string>
@@ -329,6 +330,7 @@
     <string name="item_open_source_licenses">View open source licenses</string>
     <string name="title_open_source_licenses">Open source licenses</string>
     <string name="item_update_repo">Update academic adapter repository</string>
+    <string name="item_web_debug">Web debug (enter any URL)</string>
     <string name="item_contributors">Contributors list</string>
     <string name="label_version_prefix">Version: %1$s</string>
     <string name="default_app_name">Unknown app</string>

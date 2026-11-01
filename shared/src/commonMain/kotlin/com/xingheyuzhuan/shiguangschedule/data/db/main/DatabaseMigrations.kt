@@ -3,6 +3,7 @@ package com.xingheyuzhuan.shiguangschedule.data.db.main
 import androidx.room3.migration.Migration
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
+import com.xingheyuzhuan.shiguangschedule.data.model.DefaultSchedule
 
 /**
  * 数据库版本 1 迁移到 版本 2 的迁移代码。
@@ -322,9 +323,103 @@ val MIGRATION_5_6 = object : Migration(5, 6) {
     }
 }
 
+/**
+ * 数据库版本 7 迁移到 版本 8。
+ *
+ * 只做数据迁移：把仍然是旧版 13 节默认作息的「课表专属作息」更新为新的 12 节默认作息。
+ * 通过“13 个节次的时间与旧默认值完全一致、没有别名、且没有课程占用第 13 节”来判断，
+ * 用户自己改过任意一节、设置过别名，或者公共/组合作息，都不会被覆盖。
+ */
+val MIGRATION_7_8 = object : Migration(7, 8) {
+    override suspend fun migrate(connection: SQLiteConnection) {
+        val tableIds = mutableListOf<String>()
+        connection.prepare("SELECT DISTINCT timeTableId FROM time_slots").use { stmt ->
+            while (stmt.step()) {
+                tableIds.add(stmt.getText(0))
+            }
+        }
+
+        tableIds.forEach { tableId ->
+            val currentSlots = mutableListOf<DefaultSchedule.SlotTemplate>()
+            var aliasesAllNull = true
+
+            connection.prepare(
+                "SELECT number, startTime, endTime, alias FROM time_slots WHERE timeTableId = ? ORDER BY number"
+            ).use { stmt ->
+                stmt.bindText(1, tableId)
+                while (stmt.step()) {
+                    currentSlots.add(
+                        DefaultSchedule.SlotTemplate(
+                            number = stmt.getLong(0).toInt(),
+                            startTime = stmt.getText(1),
+                            endTime = stmt.getText(2)
+                        )
+                    )
+                    if (!stmt.isNull(3)) aliasesAllNull = false
+                }
+            }
+
+            if (!aliasesAllNull || currentSlots != DefaultSchedule.legacyThirteenSlots) {
+                return@forEach
+            }
+
+            // 只迁移课表专属作息（name 为 null），公共/组合作息可能被多个课表共用，保持原样更安全
+            var isExclusiveTimeTable = false
+            connection.prepare("SELECT name FROM time_tables WHERE id = ? LIMIT 1").use { stmt ->
+                stmt.bindText(1, tableId)
+                if (stmt.step()) {
+                    isExclusiveTimeTable = stmt.isNull(0) || stmt.getText(0).isBlank()
+                }
+            }
+            if (!isExclusiveTimeTable) {
+                return@forEach
+            }
+
+            // 如果还有课程占用了旧默认作息的第 13 节，就不能删掉第 13 节，
+            // 否则课程会从课表里消失。
+            var hasCourseBeyondPeriod12 = false
+            connection.prepare(
+                """
+                SELECT COUNT(*) FROM courses c
+                LEFT JOIN course_time_bindings b ON b.courseTableId = c.courseTableId
+                WHERE (c.courseTableId = ? OR b.targetId = ?)
+                  AND (c.startSection > 12 OR c.endSection > 12)
+                """.trimIndent()
+            ).use { stmt ->
+                stmt.bindText(1, tableId)
+                stmt.bindText(2, tableId)
+                if (stmt.step()) {
+                    hasCourseBeyondPeriod12 = stmt.getLong(0) > 0
+                }
+            }
+            if (hasCourseBeyondPeriod12) {
+                return@forEach
+            }
+
+            connection.prepare("DELETE FROM time_slots WHERE timeTableId = ?").use { stmt ->
+                stmt.bindText(1, tableId)
+                stmt.step()
+            }
+
+            DefaultSchedule.slots.forEach { slot ->
+                connection.prepare(
+                    "INSERT INTO time_slots (timeTableId, number, startTime, endTime, alias) VALUES (?, ?, ?, ?, NULL)"
+                ).use { stmt ->
+                    stmt.bindText(1, tableId)
+                    stmt.bindLong(2, slot.number.toLong())
+                    stmt.bindText(3, slot.startTime)
+                    stmt.bindText(4, slot.endTime)
+                    stmt.step()
+                }
+            }
+        }
+    }
+}
+
 // 【集中管理所有迁移对象】
 val ALL_MIGRATIONS = arrayOf(
     MIGRATION_1_2,
     MIGRATION_2_3,
-    MIGRATION_5_6
+    MIGRATION_5_6,
+    MIGRATION_7_8
 )

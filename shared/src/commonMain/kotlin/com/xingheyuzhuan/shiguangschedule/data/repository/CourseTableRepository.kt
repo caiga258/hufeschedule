@@ -9,8 +9,8 @@ import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseTableDao
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWeek
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWeekDao
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
-import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
 import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeTable
+import com.xingheyuzhuan.shiguangschedule.data.model.DefaultSchedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -76,10 +76,7 @@ class CourseTableRepository(
             defaultClassDuration = 45,
             defaultBreakDuration = 10
         )
-        val defaultTimeSlotsForNewTable = defaultTimeSlots.map {
-            it.copy(timeTableId = tableId)
-        }
-        timeScheduleRepository.saveExclusiveTimeTable(exclusiveTable, defaultTimeSlotsForNewTable)
+        timeScheduleRepository.saveExclusiveTimeTable(exclusiveTable, DefaultSchedule.toTimeSlots(tableId))
 
         println("数据库初始化数据已完成写入")
     }
@@ -118,10 +115,7 @@ class CourseTableRepository(
             name = null,
             createdAt = Clock.System.now().toEpochMilliseconds()
         )
-        val defaultTimeSlotsForNewTable = defaultTimeSlots.map {
-            it.copy(timeTableId = newTable.id)
-        }
-        timeScheduleRepository.saveExclusiveTimeTable(exclusiveTable, defaultTimeSlotsForNewTable)
+        timeScheduleRepository.saveExclusiveTimeTable(exclusiveTable, DefaultSchedule.toTimeSlots(newTable.id))
 
         // 3. 插入默认课表配置
         val newConfig = CourseTableConfig(courseTableId = newTable.id)
@@ -378,19 +372,3 @@ class CourseTableRepository(
         return courseDao.getCoursesWithWeeksByTableAndWeek(courseTableId, weekNumber)
     }
 }
-
-private val defaultTimeSlots = listOf(
-    TimeSlot(number = 1, startTime = "08:00", endTime = "08:45", timeTableId = "placeholder"),
-    TimeSlot(number = 2, startTime = "08:50", endTime = "09:35", timeTableId = "placeholder"),
-    TimeSlot(number = 3, startTime = "09:50", endTime = "10:35", timeTableId = "placeholder"),
-    TimeSlot(number = 4, startTime = "10:40", endTime = "11:25", timeTableId = "placeholder"),
-    TimeSlot(number = 5, startTime = "11:30", endTime = "12:15", timeTableId = "placeholder"),
-    TimeSlot(number = 6, startTime = "14:00", endTime = "14:45", timeTableId = "placeholder"),
-    TimeSlot(number = 7, startTime = "14:50", endTime = "15:35", timeTableId = "placeholder"),
-    TimeSlot(number = 8, startTime = "15:45", endTime = "16:30", timeTableId = "placeholder"),
-    TimeSlot(number = 9, startTime = "16:35", endTime = "17:20", timeTableId = "placeholder"),
-    TimeSlot(number = 10, startTime = "18:30", endTime = "19:15", timeTableId = "placeholder"),
-    TimeSlot(number = 11, startTime = "19:20", endTime = "20:05", timeTableId = "placeholder"),
-    TimeSlot(number = 12, startTime = "20:10", endTime = "20:55", timeTableId = "placeholder"),
-    TimeSlot(number = 13, startTime = "21:10", endTime = "21:55", timeTableId = "placeholder")
-)

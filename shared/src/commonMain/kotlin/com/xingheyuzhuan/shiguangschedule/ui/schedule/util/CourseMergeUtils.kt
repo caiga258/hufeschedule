@@ -2,6 +2,7 @@ package com.xingheyuzhuan.shiguangschedule.ui.schedule.util
 
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.ScheduleModeProto
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.model.MergedCourseBlock
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.model.NormalizedCourse
@@ -111,7 +112,13 @@ object CourseMergeUtils {
     ): List<MergedCourseBlock> {
         if (timeSlots.isEmpty() && mode == ScheduleModeProto.SECTION_MODE) return emptyList()
 
-        val maxSection = if (mode == ScheduleModeProto.TIME_24H_MODE) 24f else timeSlots.size.toFloat()
+        // 节次模式下，第 3、4 节会按教学楼拆成多行；24 小时模式仍用 24 个小时格
+        val displayRows = if (mode == ScheduleModeProto.SECTION_MODE) {
+            StaggeredSchedule.buildDisplayRows(timeSlots)
+        } else {
+            emptyList()
+        }
+        val maxSection = if (mode == ScheduleModeProto.TIME_24H_MODE) 24f else displayRows.size.toFloat()
         val limit = maxSection + 1.0f
         val minSafeHeight = if (mode == ScheduleModeProto.TIME_24H_MODE) 0.0f else 0.3f
 
@@ -119,17 +126,25 @@ object CourseMergeUtils {
             try {
                 val c = cw.course
 
-                val (sTime, eTime) = if (c.isCustomTime) {
-                    LocalTime.parse(c.customStartTime ?: return@mapNotNull null) to
-                            LocalTime.parse(c.customEndTime ?: return@mapNotNull null)
-                } else {
-                    val startSlot = timeSlots.find { it.number == c.startSection } ?: return@mapNotNull null
-                    val endSlot = timeSlots.find { it.number == c.endSection } ?: return@mapNotNull null
-                    LocalTime.parse(startSlot.startTime) to LocalTime.parse(endSlot.endTime)
+                val (s, e) = when {
+                    mode == ScheduleModeProto.TIME_24H_MODE -> {
+                        val resolved = StaggeredSchedule.resolvedTimes(c, timeSlots) ?: return@mapNotNull null
+                        val sTime = LocalTime.parse(resolved.startTime)
+                        val eTime = LocalTime.parse(resolved.endTime)
+                        timeToGridScale(sTime, timeSlots, mode) to timeToGridScale(eTime, timeSlots, mode)
+                    }
+                    !c.isCustomTime -> {
+                        val span = StaggeredSchedule.rowSpanOf(c, displayRows)
+                            ?: return@mapNotNull null
+                        (span.first + 1f) to (span.second + 1f)
+                    }
+                    else -> {
+                        val customStart = c.customStartTime ?: return@mapNotNull null
+                        val customEnd = c.customEndTime ?: return@mapNotNull null
+                        StaggeredSchedule.timeToRowScale(customStart, displayRows) to
+                            StaggeredSchedule.timeToRowScale(customEnd, displayRows)
+                    }
                 }
-
-                val s = timeToGridScale(sTime, timeSlots, mode)
-                val e = timeToGridScale(eTime, timeSlots, mode)
 
                 var finalStart = s
                 var finalEnd = e

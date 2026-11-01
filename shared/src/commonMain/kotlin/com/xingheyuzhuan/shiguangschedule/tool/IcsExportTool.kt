@@ -3,6 +3,7 @@ package com.xingheyuzhuan.shiguangschedule.tool
 import com.xingheyuzhuan.shiguangschedule.data.db.main.Course
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
@@ -71,25 +72,15 @@ object IcsExportTool {
                 if (isHolidayDate(date)) return@forEach
 
                 val timeSlots = getTimeSlotsForDate(date)
-                val timeSlotMap = timeSlots.associateBy { it.number }
 
+                // 自定义时间优先，其次按教室号匹配错峰作息，最后回退到标准时间段
+                val resolvedTime = StaggeredSchedule.resolvedTimes(course, timeSlots) ?: return@forEach
                 val startTime: LocalTime
                 val endTime: LocalTime
-                if (course.isCustomTime) {
-                    val s = course.customStartTime ?: return@forEach
-                    val e = course.customEndTime ?: return@forEach
-                    try {
-                        startTime = LocalTime.parse(s)
-                        endTime = LocalTime.parse(e)
-                    } catch (_: Exception) { return@forEach }
-                } else {
-                    val s = timeSlotMap[course.startSection]?.startTime ?: return@forEach
-                    val e = timeSlotMap[course.endSection]?.endTime ?: return@forEach
-                    try {
-                        startTime = LocalTime.parse(s)
-                        endTime = LocalTime.parse(e)
-                    } catch (_: Exception) { return@forEach }
-                }
+                try {
+                    startTime = LocalTime.parse(resolvedTime.startTime)
+                    endTime = LocalTime.parse(resolvedTime.endTime)
+                } catch (_: Exception) { return@forEach }
 
                 action(
                     course,

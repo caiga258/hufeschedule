@@ -51,6 +51,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
+import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.model.MergedCourseBlock
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringArrayResource
@@ -96,6 +98,7 @@ private data class CourseDetailUIModel(
 @Composable
 fun CourseDetailBottomSheet(
     block: MergedCourseBlock,
+    timeSlots: List<TimeSlot>,
     onDismissRequest: () -> Unit,
     onEditClick: (String) -> Unit
 ) {
@@ -109,12 +112,17 @@ fun CourseDetailBottomSheet(
     val singleLabel = stringResource(Res.string.action_single_week)
     val doubleLabel = stringResource(Res.string.action_double_week)
 
-    val uiModels = remember(block) {
+    val uiModels = remember(block, timeSlots) {
         rawCoursesList.map { wrapper ->
             val course = wrapper.course
             val dayStr = weekDaysFullNames.getOrNull(course.day - 1) ?: ""
-            val timeStr = if (course.isCustomTime) {
-                "${course.customStartTime} - ${course.customEndTime}"
+            val resolvedTime = StaggeredSchedule.resolvedTimes(course, timeSlots)
+            val timeStr = if (course.isCustomTime || StaggeredSchedule.isPreciseTimeCourse(course, timeSlots)) {
+                if (resolvedTime != null) {
+                    "${resolvedTime.startTime} - ${resolvedTime.endTime}"
+                } else {
+                    "${course.startSection ?: 0}-${course.endSection ?: 0} $sectionSuffix"
+                }
             } else {
                 "${course.startSection ?: 0}-${course.endSection ?: 0} $sectionSuffix"
             }

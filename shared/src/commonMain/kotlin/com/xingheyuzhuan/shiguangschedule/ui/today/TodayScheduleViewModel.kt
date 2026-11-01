@@ -7,6 +7,7 @@ import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseTableConfig
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
 import com.xingheyuzhuan.shiguangschedule.data.model.ScheduleGridStyle
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.data.repository.AppSettingsRepository
 import com.xingheyuzhuan.shiguangschedule.data.repository.CourseTableRepository
 import com.xingheyuzhuan.shiguangschedule.data.repository.StyleSettingsRepository
@@ -117,15 +118,11 @@ class TodayScheduleViewModel(
         snapshot: DataSnapshot,
         today: LocalDate
     ): TodayUiState.Success {
-        val slotMap = snapshot.timeSlots.associateBy { it.number }
-
         val displayModels = courses.map { item ->
-            val startSlot = slotMap[item.course.startSection]
-            val endSlot = slotMap[item.course.endSection]
             CourseDisplayModel(
                 course = item.course,
-                startTime = item.course.customStartTime ?: startSlot?.startTime,
-                endTime = item.course.customEndTime ?: endSlot?.endTime
+                startTime = StaggeredSchedule.resolvedStartTime(item.course, snapshot.timeSlots),
+                endTime = StaggeredSchedule.resolvedEndTime(item.course, snapshot.timeSlots)
             )
         }.sortedWith(
             compareBy<CourseDisplayModel> { it.startTime ?: MAX_TIME_SORT_KEY }

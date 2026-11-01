@@ -5,6 +5,7 @@ import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import com.xingheyuzhuan.shiguangschedule.data.db.widget.WidgetAppSettings
 import com.xingheyuzhuan.shiguangschedule.data.db.widget.WidgetCourse
 import com.xingheyuzhuan.shiguangschedule.data.model.AppSettingsModel
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.data.repository.AppSettingsRepository
 import com.xingheyuzhuan.shiguangschedule.data.repository.CourseTableRepository
 import com.xingheyuzhuan.shiguangschedule.data.repository.TimeScheduleRepository
@@ -230,23 +231,15 @@ class WidgetDataSynchronizer(
 
             // 根据当前具体的日期，动态获取当天真实生效的时间段
             val effectiveTimeSlots = timeScheduleRepository.getEffectiveTimeSlotsOnce(tableId, date)
-            val timeSlotMap = effectiveTimeSlots.associateBy { it.number }
 
             for (courseWithWeeks in coursesWithWeeks) {
                 if (courseWithWeeks.weeks.any { it.weekNumber == weekNumber } && courseWithWeeks.course.day == dayOfWeek) {
                     val course = courseWithWeeks.course
 
-                    val startTime: String
-                    val endTime: String
-
-                    // 处理自定义时间或标准时间段
-                    if (course.isCustomTime) {
-                        startTime = course.customStartTime ?: ""
-                        endTime = course.customEndTime ?: ""
-                    } else {
-                        startTime = timeSlotMap[course.startSection]?.startTime ?: ""
-                        endTime = timeSlotMap[course.endSection]?.endTime ?: ""
-                    }
+                    // 自定义时间优先，其次按教室号匹配错峰作息，最后回退到标准时间段
+                    val resolvedTime = StaggeredSchedule.resolvedTimes(course, effectiveTimeSlots)
+                    val startTime = resolvedTime?.startTime ?: ""
+                    val endTime = resolvedTime?.endTime ?: ""
 
                     // 检查该日期是否被设为调休/停课
                     val isSkipped = date in holidayDatesSet

@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -26,6 +27,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -73,6 +75,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
 import shiguangschedule.shared.generated.resources.Res
+import shiguangschedule.shared.generated.resources.action_import
 import shiguangschedule.shared.generated.resources.action_select_table
 import shiguangschedule.shared.generated.resources.arrow_drop_down_24px
 import shiguangschedule.shared.generated.resources.format_week_display
@@ -135,7 +138,6 @@ fun WeeklyScheduleScreen(
 
     var showWeekSelector by remember { mutableStateOf(false) }
     var showTableSwitcher by remember { mutableStateOf(false) }
-    var isGridHolding by remember { mutableStateOf(false) }
     var selectedBlockForDetail by remember { mutableStateOf<MergedCourseBlock?>(null) }
 
     val composedStyle by remember(uiState.style) {
@@ -240,6 +242,17 @@ fun WeeklyScheduleScreen(
                         }
                     },
                     actions = {
+                        // 课表导入入口直接放在课表页顶部，不用再进「我的 → 高级设置」里找
+                        TextButton(
+                            onClick = { onNavigate(Destination.CourseTableConversion) },
+                            contentPadding = PaddingValues(horizontal = 8.dp)
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.action_import),
+                                color = customTextColor,
+                                style = MaterialTheme.typography.labelLarge
+                            )
+                        }
                         IconButton(onClick = { showTableSwitcher = true }) {
                             Icon(
                                 imageVector = vectorResource(Res.drawable.swap_horiz_24px),
@@ -273,7 +286,8 @@ fun WeeklyScheduleScreen(
                     )
                     .fillMaxSize(),
                 beyondViewportPageCount = 1,
-                userScrollEnabled = !isGridHolding
+                // 横滑手势交给外层的一级页面分页容器，周次只通过标题里的周次选择器切换
+                userScrollEnabled = false
             ) { pageIndex ->
 
                 val pageMondayDate = remember(pageIndex, uiState.firstDayOfWeek) {
@@ -317,11 +331,12 @@ fun WeeklyScheduleScreen(
                         currentYear = pageYearString,
                         currentWeek = weekStr,
                         timeSlots = uiState.timeSlots,
+                        displayRows = uiState.displayRows,
                         mergedCourses = pageCourses,
                         showWeekends = uiState.showWeekends,
                         todayIndex = pageTodayIndex,
                         firstDayOfWeek = uiState.firstDayOfWeek,
-                        currentSectionIndex = if (pageTodayIndex >= 0) uiState.currentSectionIndex else -1
+                        currentRowIndices = if (pageTodayIndex >= 0) uiState.currentRowIndices else emptySet()
                     )
                 }
 
@@ -396,7 +411,7 @@ fun WeeklyScheduleScreen(
                         }
 
                         override fun onHoldStateChanged(isHolding: Boolean) {
-                            isGridHolding = isHolding
+                            // 周视图不再用手指翻页，拖动课程时无需再临时锁住翻页
                         }
 
                         override fun onCourseMovedWithinGrid(
@@ -510,6 +525,7 @@ fun WeeklyScheduleScreen(
     if (selectedBlockForDetail != null) {
         CourseDetailBottomSheet(
             block = selectedBlockForDetail!!,
+            timeSlots = uiState.timeSlots,
             onDismissRequest = { selectedBlockForDetail = null },
             onEditClick = { courseId ->
                 selectedBlockForDetail = null

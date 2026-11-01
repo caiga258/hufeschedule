@@ -1,6 +1,6 @@
 <resources>
     <!-- 應用基礎資訊 -->
-    <string name="app_name">拾光課程表</string>
+    <string name="app_name">財院課程表</string>
     
     <!-- 通用按鈕和提示資訊 -->
     <string name="action_confirm">確定</string>
@@ -9,6 +9,7 @@
     <string name="a11y_delete">刪除</string>
     <string name="a11y_edit">編輯</string>
     <string name="action_add">新增</string>
+    <string name="action_import">匯入</string>
     <string name="action_next_step">下一步</string>
     <string name="title_loading">載入中...</string>
     <string name="text_error">錯誤</string>
@@ -325,6 +326,7 @@
     <string name="item_open_source_licenses">檢視開放原始碼授權</string>
     <string name="title_open_source_licenses">開放原始碼授權</string>
     <string name="item_update_repo">更新教務適配倉庫</string>
+    <string name="item_web_debug">網頁偵錯（輸入任意網址）</string>
     <string name="item_contributors">貢獻者清單</string>
     <string name="label_version_prefix">版本: %1$s</string>
     <string name="default_app_name">未知應用程式</string>

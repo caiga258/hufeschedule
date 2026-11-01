@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import com.xingheyuzhuan.shiguangschedule.data.model.ScheduleGridStyle
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.ScheduleModeProto
 import com.xingheyuzhuan.shiguangschedule.data.repository.AppSettingsRepository
 import com.xingheyuzhuan.shiguangschedule.data.repository.CourseTableRepository
@@ -14,8 +15,8 @@ import com.xingheyuzhuan.shiguangschedule.ui.schedule.model.ScheduleConfigPackag
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.model.WeeklyScheduleUiState
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.util.CourseMergeUtils.gridScaleToTime
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.util.CourseMergeUtils.mergeCourses
-import com.xingheyuzhuan.shiguangschedule.ui.schedule.util.calculateCurrentSectionIndex
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.util.formatToHHmm
+import com.xingheyuzhuan.shiguangschedule.ui.schedule.util.getCurrentLocalTime
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.util.getTodayLocalDate
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.util.startOfWeek
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -178,7 +179,12 @@ class WeeklyScheduleViewModel(
                     firstDayOfWeekInt = firstDayOfWeekInt
                 )
 
-                val currentSectionIndex = calculateCurrentSectionIndex(timeSlots)
+                val displayRows = StaggeredSchedule.buildDisplayRows(timeSlots)
+                val now = getCurrentLocalTime()
+                val currentRowIndices = StaggeredSchedule.currentRowIndices(
+                    rows = displayRows,
+                    nowMinutes = now.hour * 60 + now.minute
+                )
 
                 val daysUntil = if (startDate != null && today < startDate) {
                     today.daysUntil(startDate).toLong()
@@ -198,13 +204,14 @@ class WeeklyScheduleViewModel(
                     courseCache = cache,
                     currentMergedCourses = cache[configPkg.mondayDate.toString()] ?: emptyList(),
                     timeSlots = timeSlots,
+                    displayRows = displayRows,
                     isSemesterSet = startDate != null,
                     semesterStartDate = startDate,
                     firstDayOfWeek = firstDayOfWeekInt,
                     weekIndexInPager = weekIndex,
                     currentWeekNumber = currentWeekNum,
                     pagerMondayDate = configPkg.mondayDate,
-                    currentSectionIndex = currentSectionIndex,
+                    currentRowIndices = currentRowIndices,
                     daysUntilStart = daysUntil,
                     floatingCourse = previousState.floatingCourse,
                     floatingSourceWeek = previousState.floatingSourceWeek,

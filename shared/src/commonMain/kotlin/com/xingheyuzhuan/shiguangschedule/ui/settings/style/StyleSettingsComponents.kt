@@ -61,6 +61,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.xingheyuzhuan.shiguangschedule.Destination
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.BorderTypeProto
 import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.ScheduleModeProto
 import com.xingheyuzhuan.shiguangschedule.ui.components.AdvancedColorPicker
@@ -398,11 +399,12 @@ fun ScheduleGridContent(
             currentYear = currentYearString,
             currentWeek = previewWeekStr,
             timeSlots = demoUiState.timeSlots,
+            displayRows = StaggeredSchedule.buildDisplayRows(demoUiState.timeSlots),
             mergedCourses = demoUiState.currentMergedCourses,
             showWeekends = demoUiState.showWeekends,
             todayIndex = dynamicTodayIndex,
             firstDayOfWeek = demoUiState.firstDayOfWeek,
-            currentSectionIndex = -1
+            currentRowIndices = emptySet()
         )
     }
 

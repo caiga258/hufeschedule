@@ -7,6 +7,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,7 +15,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
@@ -56,6 +59,7 @@ import com.xingheyuzhuan.shiguangschedule.ui.settings.time.TimeScheduleManagemen
 import com.xingheyuzhuan.shiguangschedule.ui.settings.update.UpdateRepoScreen
 import com.xingheyuzhuan.shiguangschedule.ui.theme.ShiguangScheduleTheme
 import com.xingheyuzhuan.shiguangschedule.ui.today.TodayScheduleScreen
+import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -85,18 +89,52 @@ fun AppNavigation(startDestination: Destination) {
         startDestination
     )
 
-    val currentDestination = backStack.lastOrNull() as? Destination ?: startDestination
+    val coroutineScope = rememberCoroutineScope()
+
+    // 三个一级页面放进同一个横向分页容器：
+    // 手指横滑和点击导航栏都只是让这个容器滚到目标页，
+    // 所以切换方向和页面位置天然一致（往右边的页面切 = 新页面从右侧滑入）。
+    val initialTabIndex = remember(startDestination) {
+        startDestination.mainTabIndex.takeIf { it >= 0 } ?: 0
+    }
+    val pagerState = rememberPagerState(initialPage = initialTabIndex) {
+        MainTabDestinations.size
+    }
+
+    // 栈底的 startDestination 一直保留，栈里多出来的就是已打开的二级页面
+    val isSecondaryPageVisible = backStack.size > 1
+    val currentDestination = if (isSecondaryPageVisible) {
+        backStack.last() as Destination
+    } else {
+        MainTabDestinations[pagerState.currentPage.coerceIn(MainTabDestinations.indices)]
+    }
 
     var navHideFraction by remember { mutableFloatStateOf(0f) }
 
+    // 切换一级页面时清掉导航栏的隐藏进度，避免把某一页的折叠状态带到别的页面
+    LaunchedEffect(pagerState.currentPage) {
+        navHideFraction = 0f
+    }
+
     val pendingFile by ExternalFileManager.pendingFile.collectAsState()
 
-    val onNavigate: (Destination) -> Unit = remember(backStack) {
+    val onNavigate: (Destination) -> Unit = remember(backStack, pagerState, coroutineScope) {
         { dest ->
             if (dest.isMainScreen) {
-                if (backStack.lastOrNull() != dest) {
-                    backStack.clear()
-                    backStack.add(dest)
+                // 回到底部导航的一级页面：关掉所有二级页面，再滚动到目标页
+                while (backStack.size > 1) {
+                    backStack.removeAt(backStack.lastIndex)
+                }
+                val targetIndex = dest.mainTabIndex
+                if (targetIndex >= 0 &&
+                    (pagerState.currentPage != targetIndex || pagerState.isScrollInProgress)
+                ) {
+                    coroutineScope.launch {
+                        // 从二级页面返回时 pager 还没重新组合，先等一帧拿到布局信息再滚动，
+                        // 否则会按错误的目标位置滚动甚至不动
+                        withFrameNanos { }
+                        pagerState.animateScrollToPage(targetIndex)
+                    }
                 }
             } else {
                 if (backStack.lastOrNull() != dest) {
@@ -159,12 +197,22 @@ fun AppNavigation(startDestination: Destination) {
                 }
             ) {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    ScreenContent(
-                        targetDest = destination,
-                        onNavigate = onNavigate,
-                        onBack = onBack,
-                        onNavHideFractionChanged = { navHideFraction = it }
-                    )
+                    if (destination.isMainScreen) {
+                        // 栈底的一级页面：真正的内容由 MainTabPager 承载
+                        MainTabPager(
+                            pagerState = pagerState,
+                            onNavigate = onNavigate,
+                            onBack = onBack,
+                            onNavHideFractionChanged = { navHideFraction = it }
+                        )
+                    } else {
+                        ScreenContent(
+                            targetDest = destination,
+                            onNavigate = onNavigate,
+                            onBack = onBack,
+                            onNavHideFractionChanged = { navHideFraction = it }
+                        )
+                    }
                 }
             }
         }

@@ -1,5 +1,10 @@
 package com.xingheyuzhuan.shiguangschedule.ui.schedule.components
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +16,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,9 +41,15 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
+import com.xingheyuzhuan.shiguangschedule.data.model.StaggeredSchedule
 import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.BorderTypeProto
 import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.ScheduleModeProto
 import com.xingheyuzhuan.shiguangschedule.ui.theme.LocalIsDarkTheme
+import kotlinx.coroutines.delay
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.isoDayNumber
+import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
 
 @Composable
 fun CourseBlock(
@@ -69,23 +85,20 @@ fun CourseBlock(
     val customTimeString = if (customStartTime != null && customEndTime != null) "$customStartTime - $customEndTime" else null
     val isCustomTimeCourse = customTimeString != null
 
+    // 按教室号匹配错峰规则，得到该课程真正上课的起止时间（用于 24 小时模式与上课状态）
+    val resolvedTime = StaggeredSchedule.resolvedTimes(course, timeSlots)
+    val resolvedTimeString = resolvedTime?.let { "${it.startTime} - ${it.endTime}" }
+
     val timeTextToShow = if (style.scheduleMode == ScheduleModeProto.TIME_24H_MODE) {
         // 24小时绝对时间轴模式：全部课程都显示起止时间
-        if (isCustomTimeCourse) {
-            customTimeString
-        } else {
-            val startSlot = timeSlots.find { it.number == course.startSection }
-            val endSlot = timeSlots.find { it.number == course.endSection }
-            if (startSlot != null && endSlot != null) "${startSlot.startTime} - ${endSlot.endTime}" else null
-        }
+        resolvedTimeString ?: customTimeString
     } else {
-        // 传统节次模式：只有自定义课程显示起止时间；普通节次课程只有在开启展示开始时间时才显示开始时间
-        if (isCustomTimeCourse) {
-            customTimeString
-        } else if (style.showStartTime) {
-            timeSlots.find { it.number == course.startSection }?.startTime
-        } else {
-            null
+        // 传统节次模式：错峰时间已经由左侧独立时间行展示，课程块内不再重复；
+        // 仅手动自定义时间 / 开启“显示开始时间”时显示时间。
+        when {
+            isCustomTimeCourse -> customTimeString
+            style.showStartTime -> StaggeredSchedule.resolvedStartTime(course, timeSlots)
+            else -> null
         }
     }
 
@@ -94,6 +107,55 @@ fun CourseBlock(
     val borderWidth = if (isFloating) 2.dp else 1.dp
     val borderAlpha = if (isFloating) 1.0f else style.courseBlockAlpha
     val shape = RoundedCornerShape(style.courseBlockCornerRadius)
+
+    // ===== 上课状态高亮：0 普通 / 1 即将开始（20 分钟内）/ 2 正在上课 =====
+    var nowMinuteOfDay by remember { mutableIntStateOf(-1) }
+    var todayIso by remember { mutableIntStateOf(-1) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+            nowMinuteOfDay = now.hour * 60 + now.minute
+            todayIso = now.dayOfWeek.isoDayNumber
+            delay(30_000)
+        }
+    }
+
+    fun toMinutes(text: String?): Int? {
+        val s = text ?: return null
+        val parts = s.split(":")
+        if (parts.size < 2) return null
+        val h = parts[0].toIntOrNull() ?: return null
+        val m = parts[1].toIntOrNull() ?: return null
+        return h * 60 + m
+    }
+
+    val liveStartText = StaggeredSchedule.resolvedStartTime(course, timeSlots)
+    val liveEndText = StaggeredSchedule.resolvedEndTime(course, timeSlots)
+    val liveStart = toMinutes(liveStartText)
+    val liveEnd = toMinutes(liveEndText)
+
+    val liveStatus = when {
+        isVisualDemoted || nowMinuteOfDay < 0 || todayIso < 0 -> 0
+        course.day != todayIso -> 0
+        liveStart == null || liveEnd == null -> 0
+        nowMinuteOfDay >= liveStart && nowMinuteOfDay < liveEnd -> 2
+        nowMinuteOfDay < liveStart && liveStart - nowMinuteOfDay <= 20 -> 1
+        else -> 0
+    }
+
+    val liveAccent = MaterialTheme.colorScheme.primary
+    val livePulse by rememberInfiniteTransition(label = "livePulse").animateFloat(
+        initialValue = 0.25f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(tween(1100), RepeatMode.Reverse),
+        label = "livePulseAlpha"
+    )
+
+    val liveBorderModifier = when (liveStatus) {
+        2 -> Modifier.border(2.dp, liveAccent.copy(alpha = livePulse), shape)
+        1 -> Modifier.border(1.dp, liveAccent.copy(alpha = 0.55f), shape)
+        else -> Modifier
+    }
 
     val borderModifier = when (style.borderType) {
         BorderTypeProto.BORDER_TYPE_SOLID -> {
@@ -131,6 +193,7 @@ fun CourseBlock(
             .then(floatingShadowModifier)
             .fillMaxSize()
             .then(borderModifier)
+            .then(liveBorderModifier)
             .clip(shape)
             .background(color = blockColor)
     ) {
@@ -140,6 +203,18 @@ fun CourseBlock(
             horizontalAlignment = horizontalAlignment,
             verticalArrangement = verticalArrangement
         ) {
+            if (liveStatus > 0) {
+                Text(
+                    text = if (liveStatus == 2) "● 上课中" else "○ 即将上课",
+                    fontSize = s10,
+                    fontWeight = FontWeight.Bold,
+                    color = if (liveStatus == 2) liveAccent else liveAccent.copy(alpha = 0.75f),
+                    textAlign = textAlign,
+                    overflow = TextOverflow.Ellipsis,
+                    style = TextStyle(lineHeight = 1.em)
+                )
+            }
+
             if (timeTextToShow != null) {
                 Text(
                     text = timeTextToShow,

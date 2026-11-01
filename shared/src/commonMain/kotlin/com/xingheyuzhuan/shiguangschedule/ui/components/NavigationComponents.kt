@@ -59,6 +59,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xingheyuzhuan.shiguangschedule.Destination
+import com.xingheyuzhuan.shiguangschedule.MainTabDestinations
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import shiguangschedule.shared.generated.resources.Res
@@ -111,26 +112,29 @@ fun AdaptiveNavigationScaffold(
         courseSelectedIcon, courseUnselectedIcon,
         settingsSelectedIcon, settingsUnselectedIcon
     ) {
-        listOf(
-            NavItemData(
-                label = todayLabel,
-                destination = Destination.TodaySchedule,
-                selectedIcon = todaySelectedIcon,
-                unselectedIcon = todayUnselectedIcon
-            ),
-            NavItemData(
-                label = courseLabel,
-                destination = Destination.CourseSchedule,
-                selectedIcon = courseSelectedIcon,
-                unselectedIcon = courseUnselectedIcon
-            ),
-            NavItemData(
-                label = settingsLabel,
-                destination = Destination.Settings,
-                selectedIcon = settingsSelectedIcon,
-                unselectedIcon = settingsUnselectedIcon
-            )
-        )
+        // 顺序以 MainTabDestinations 为准，保证导航栏顺序和横向分页的顺序永远一致
+        MainTabDestinations.map { destination ->
+            when (destination) {
+                Destination.TodaySchedule -> NavItemData(
+                    label = todayLabel,
+                    destination = destination,
+                    selectedIcon = todaySelectedIcon,
+                    unselectedIcon = todayUnselectedIcon
+                )
+                Destination.CourseSchedule -> NavItemData(
+                    label = courseLabel,
+                    destination = destination,
+                    selectedIcon = courseSelectedIcon,
+                    unselectedIcon = courseUnselectedIcon
+                )
+                else -> NavItemData(
+                    label = settingsLabel,
+                    destination = destination,
+                    selectedIcon = settingsSelectedIcon,
+                    unselectedIcon = settingsUnselectedIcon
+                )
+            }
+        }
     }
 
     val layoutType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(currentWindowAdaptiveInfo())
