@@ -7,6 +7,7 @@ import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseTableConfig
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseTableConfigDao
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseTableDao
 import com.xingheyuzhuan.shiguangschedule.data.model.AppSettingsModel
+import com.xingheyuzhuan.shiguangschedule.data.model.DefaultSemester
 import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.ScheduleGridStyleProto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -60,7 +61,8 @@ class AppSettingsRepository(
     private val COURSE_CONFIG_TEMPLATE = CourseTableConfig(
         courseTableId = "",
         showWeekends = false,
-        semesterStartDate = null,
+        // 湖财默认 9 月 5 日开学，缺省时直接用它，用户仍可在设置里修改
+        semesterStartDate = DefaultSemester.defaultStartDate(),
         semesterTotalWeeks = 20,
         firstDayOfWeek = DayOfWeek.MONDAY.isoDayNumber
     )

@@ -11,6 +11,7 @@ import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWeekDao
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeTable
 import com.xingheyuzhuan.shiguangschedule.data.model.DefaultSchedule
+import com.xingheyuzhuan.shiguangschedule.data.model.DefaultSemester
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -64,6 +65,7 @@ class CourseTableRepository(
         val defaultConfig = CourseTableConfig(
             courseTableId = tableId,
             showWeekends = false,
+            semesterStartDate = DefaultSemester.defaultStartDate(),
             semesterTotalWeeks = 20,
             firstDayOfWeek = 1
         )
@@ -117,8 +119,11 @@ class CourseTableRepository(
         )
         timeScheduleRepository.saveExclusiveTimeTable(exclusiveTable, DefaultSchedule.toTimeSlots(newTable.id))
 
-        // 3. 插入默认课表配置
-        val newConfig = CourseTableConfig(courseTableId = newTable.id)
+        // 3. 插入默认课表配置（开学日期默认取湖财的 9 月 5 日）
+        val newConfig = CourseTableConfig(
+            courseTableId = newTable.id,
+            semesterStartDate = DefaultSemester.defaultStartDate()
+        )
         appSettingsRepository.insertOrUpdateCourseConfig(newConfig)
     }
 
