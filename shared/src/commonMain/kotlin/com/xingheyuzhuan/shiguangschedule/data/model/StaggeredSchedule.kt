@@ -6,14 +6,25 @@ import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
 /**
  * 湖南财政经济学院主校区「第 3、4 节错峰上课」规则。
  *
- * 依据《湖南财政经济学院主校区上课作息时间》：
- * - 第 3 节：一、二教学楼 / 实验楼 / 体育课教学场地 10:00-10:45；三教学楼 10:20-11:05
- * - 第 4 节：一教学楼 / 实验楼 / 体育课教学场地 10:45-11:30；二教学楼 10:55-11:40；三教学楼 11:15-12:00
+ * 判定依据：《湖南财政经济学院主校区上课作息时间》（附件 3）。
  *
- * 教学楼由教室号的第一个数字判定（2301 → 二教，3415 → 三教）；
- * 实验楼、体育场等没有教室号（或带有“实验 / 体育”等字样）的地点使用默认作息。
+ * | 节次 | 上课时间 | 适用地点 |
+ * | --- | --- | --- |
+ * | 第 3 节 | 10:00-10:45 | 一、二教学楼，实验楼，体育课教学场地 |
+ * | 第 3 节 | 10:20-11:05 | 三教学楼 |
+ * | 第 4 节 | 10:45-11:30 | 一教学楼，实验楼，体育课教学场地 |
+ * | 第 4 节 | 10:55-11:40 | 二教学楼 |
+ * | 第 4 节 | 11:15-12:00 | 三教学楼 |
  *
- * 本规则只在作息表的第 3、4 节与默认值完全一致时生效，
+ * 也就是说：同一间教室在第 3 节和第 4 节的时间不一样，同一节次在不同教学楼也不一样。
+ * 因此判定始终是 **「当前节次 × 上课教室」→ 时间**，见 [variants] 里的完整矩阵：
+ * 第 3 节 2 种、第 4 节 3 种。
+ *
+ * 教学楼由上课地点解析：优先识别「一教 / 二教 / 三教 / 三教学楼」等文字，
+ * 其次是四位教室号的首位数字（2301 → 二教，3415 → 三教）；
+ * 实验楼、体育场等没有教室号（或带有“实验 / 体育”等字样）的地点使用表格里的默认时间。
+ *
+ * 本规则只在作息表的第 3、4 节仍等于默认值时生效，
  * 避免用户自定义了其他作息方案后仍被这里固定写死的时间错误覆盖。
  */
 object StaggeredSchedule {
@@ -23,10 +34,16 @@ object StaggeredSchedule {
         val endTime: String
     )
 
+    /**
+     * 判定矩阵中的一行：某个节次下的一种上课时间。
+     *
+     * @param buildingKey 适用教学楼（"1"/"2"/"3"）；`null` 表示默认行
+     *  （一/二教学楼、实验楼、体育课教学场地等未单独列出时间的场所）
+     */
     data class SlotRule(
         val section: Int,
-        val buildingKey: String,
-        val buildingLabel: String,
+        val buildingKey: String?,
+        val buildingLabel: String?,
         val range: TimeRange
     )
 
@@ -47,18 +64,25 @@ object StaggeredSchedule {
         val isStaggered: Boolean
     )
 
-    /** 规则所基于的默认第 3、4 节时间，只有作息表与它一致时才启用错峰规则。 */
-    private val baseSectionTimes = mapOf(
-        3 to TimeRange("10:00", "10:45"),
-        4 to TimeRange("10:45", "11:30")
-    )
-
-    /** 各教学楼在不同节次上的特殊时间。没有出现在这里的一律使用默认作息。 */
-    private val rules = listOf(
+    /**
+     * 完整的「节次 × 教室」时间矩阵，直接照抄附件 3：
+     * 第 3 节 2 种上课时间，第 4 节 3 种上课时间。
+     * `buildingKey = null` 的行是该节次在表格里的默认时间（一/二教学楼、实验楼、体育课教学场地）。
+     */
+    val variants: List<SlotRule> = listOf(
+        SlotRule(section = 3, buildingKey = null, buildingLabel = "一/二教等", range = TimeRange("10:00", "10:45")),
         SlotRule(section = 3, buildingKey = "3", buildingLabel = "三教", range = TimeRange("10:20", "11:05")),
+        SlotRule(section = 4, buildingKey = null, buildingLabel = "一教等", range = TimeRange("10:45", "11:30")),
         SlotRule(section = 4, buildingKey = "2", buildingLabel = "二教", range = TimeRange("10:55", "11:40")),
         SlotRule(section = 4, buildingKey = "3", buildingLabel = "三教", range = TimeRange("11:15", "12:00"))
     )
+
+    /** 参与错峰的节次（第 3、4 节）。 */
+    val staggeredSections: List<Int> = variants.map { it.section }.distinct()
+
+    /** 某节次的默认时间行；作息表里该节次的时间与它一致时才允许套用错峰矩阵。 */
+    private fun defaultVariantOf(section: Int): SlotRule? =
+        variants.firstOrNull { it.section == section && it.buildingKey == null }
 
     private val buildingByChinese = mapOf("一" to "1", "二" to "2", "三" to "3")
 
@@ -69,17 +93,17 @@ object StaggeredSchedule {
     private val chineseBuildingRegex = Regex("""([一二三])教""")
 
     /**
-     * 某节次是否适合套用错峰规则：作息表里必须存在该节次，且起止时间仍是默认值。
+     * 某节次是否适合套用错峰规则：作息表里必须存在该节次，且起止时间仍是表格里的默认值。
      */
     fun isApplicableForSection(section: Int, timeSlots: List<TimeSlot>): Boolean {
-        val base = baseSectionTimes[section] ?: return false
+        val base = defaultVariantOf(section) ?: return false
         val slot = timeSlots.firstOrNull { it.number == section } ?: return false
-        return slot.startTime == base.startTime && slot.endTime == base.endTime
+        return slot.startTime == base.range.startTime && slot.endTime == base.range.endTime
     }
 
     /** 当前作息表是否存在任何可展示的错峰时间。 */
     fun hasAnyVariant(timeSlots: List<TimeSlot>): Boolean =
-        rules.any { isApplicableForSection(it.section, timeSlots) }
+        variants.any { it.buildingKey != null && isApplicableForSection(it.section, timeSlots) }
 
     /**
      * 从上课地点中解析教学楼序号：
@@ -118,35 +142,27 @@ object StaggeredSchedule {
         val result = ArrayList<DisplayRow>(sorted.size + 4)
 
         sorted.forEach { slot ->
-            if (slot.number == 3 || slot.number == 4) {
-                val rules = variantsForSection(slot.number, timeSlots)
-                if (rules.isNotEmpty()) {
+            // 第 3、4 节：按「节次 × 教室」矩阵逐行展开（第 3 节 2 行、第 4 节 3 行）
+            val sectionVariants = if (slot.number in staggeredSections) {
+                variants.filter { it.section == slot.number }
+            } else {
+                emptyList()
+            }
+            if (sectionVariants.isNotEmpty() && isApplicableForSection(slot.number, timeSlots)) {
+                sectionVariants.forEach { rule ->
                     result.add(
                         DisplayRow(
                             section = slot.number,
                             alias = slot.alias,
-                            buildingGroup = null,
-                            buildingLabel = defaultBuildingLabelOf(slot.number),
-                            startTime = slot.startTime,
-                            endTime = slot.endTime,
-                            isStaggered = false
+                            buildingGroup = rule.buildingKey,
+                            buildingLabel = rule.buildingLabel,
+                            startTime = rule.range.startTime,
+                            endTime = rule.range.endTime,
+                            isStaggered = rule.buildingKey != null
                         )
                     )
-                    rules.forEach { rule ->
-                        result.add(
-                            DisplayRow(
-                                section = slot.number,
-                                alias = slot.alias,
-                                buildingGroup = rule.buildingKey,
-                                buildingLabel = rule.buildingLabel,
-                                startTime = rule.range.startTime,
-                                endTime = rule.range.endTime,
-                                isStaggered = true
-                            )
-                        )
-                    }
-                    return@forEach
                 }
+                return@forEach
             }
 
             result.add(
@@ -162,12 +178,6 @@ object StaggeredSchedule {
             )
         }
         return result
-    }
-
-    private fun defaultBuildingLabelOf(section: Int): String? = when (section) {
-        3 -> "一/二教等"
-        4 -> "一教等"
-        else -> null
     }
 
     /** 在显示行中查找某个节次、某个教学楼组对应的行号；找不到时回退到该节次的默认行。 */
@@ -246,13 +256,13 @@ object StaggeredSchedule {
     }
 
     /**
-     * 第 [section] 节需要额外展示的错峰时间（不含默认时间本身）。
+     * 第 [section] 节需要额外展示的错峰时间（不含该节次的默认时间本身）。
      * 返回结果按开始时间升序排列。
      */
     fun variantsForSection(section: Int, timeSlots: List<TimeSlot>): List<SlotRule> {
         if (!isApplicableForSection(section, timeSlots)) return emptyList()
-        return rules
-            .filter { it.section == section }
+        return variants
+            .filter { it.section == section && it.buildingKey != null }
             .sortedBy { it.range.startTime }
     }
 
@@ -373,9 +383,14 @@ object StaggeredSchedule {
         )
     }
 
+    /**
+     * 按「当前节次 + 上课教室」查出对应的时间行。
+     * 教室没有单独列出时间（一教、二教的第 3 节，实验楼、体育场地等）时返回 null，
+     * 调用方回退到作息表里该节次的默认时间。
+     */
     private fun ruleFor(position: String, section: Int, timeSlots: List<TimeSlot>): SlotRule? {
         if (!isApplicableForSection(section, timeSlots)) return null
         val buildingKey = buildingKeyOf(position) ?: return null
-        return rules.firstOrNull { it.section == section && it.buildingKey == buildingKey }
+        return variants.firstOrNull { it.section == section && it.buildingKey == buildingKey }
     }
 }

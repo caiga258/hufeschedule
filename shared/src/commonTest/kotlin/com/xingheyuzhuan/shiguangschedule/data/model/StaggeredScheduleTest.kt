@@ -184,8 +184,7 @@ class StaggeredScheduleTest {
     }
 
     @Test
-    fun variantsAreListedPerSectionInStartTimeOrder() {
-        val third = StaggeredSchedule.variantsForSection(3, defaultSlots)
+    fun variantsAreListedPerSectionInStartTimeOrder() {        val third = StaggeredSchedule.variantsForSection(3, defaultSlots)
         assertEquals(listOf("三教"), third.map { it.buildingLabel })
         assertEquals(listOf("10:20"), third.map { it.range.startTime })
 
@@ -199,5 +198,72 @@ class StaggeredScheduleTest {
         val otherSchedule = listOf(slot(1, "08:00", "08:45"), slot(3, "09:50", "10:35"), slot(4, "10:40", "11:25"))
         assertFalse(StaggeredSchedule.hasAnyVariant(otherSchedule))
         assertTrue(StaggeredSchedule.variantsForSection(3, otherSchedule).isEmpty())
+    }
+
+    /**
+     * 判定依据：附件 3《湖南财政经济学院主校区上课作息时间》。
+     * 第 3 节 2 种、第 4 节 3 种，按「节次 × 教室」取值。
+     */
+    @Test
+    fun sectionAndBuildingMatrixMatchesTheOfficialTable() {
+        val cases = listOf(
+            // 第 3 节：一、二教学楼 / 实验楼 / 体育课教学场地 10:00-10:45；三教学楼 10:20-11:05
+            Triple(3, "一教学楼(1301)", "10:00" to "10:45"),
+            Triple(3, "二教学楼(2301)", "10:00" to "10:45"),
+            Triple(3, "2304", "10:00" to "10:45"),
+            Triple(3, "实验楼301", "10:00" to "10:45"),
+            Triple(3, "体育课教学场地", "10:00" to "10:45"),
+            Triple(3, "三教学楼(3415)", "10:20" to "11:05"),
+            // 第 4 节：一教学楼 / 实验楼 / 体育课教学场地 10:45-11:30；二教学楼 10:55-11:40；三教学楼 11:15-12:00
+            Triple(4, "一教学楼(1301)", "10:45" to "11:30"),
+            Triple(4, "1301", "10:45" to "11:30"),
+            Triple(4, "实验楼301", "10:45" to "11:30"),
+            Triple(4, "体育场", "10:45" to "11:30"),
+            Triple(4, "二教学楼(2301)", "10:55" to "11:40"),
+            Triple(4, "2304", "10:55" to "11:40"),
+            Triple(4, "三教学楼(3415)", "11:15" to "12:00")
+        )
+
+        cases.forEach { (section, position, expected) ->
+            assertEquals(
+                StaggeredSchedule.TimeRange(expected.first, expected.second),
+                StaggeredSchedule.resolvedTimes(course(position, section, section), defaultSlots),
+                "第 ${section} 节 @ $position"
+            )
+        }
+    }
+
+    @Test
+    fun displayRowsContainTwoThirdRowsAndThreeFourthRows() {
+        val rows = StaggeredSchedule.buildDisplayRows(defaultSlots)
+        val third = rows.filter { it.section == 3 }
+        val fourth = rows.filter { it.section == 4 }
+
+        assertEquals(2, third.size)
+        assertEquals(3, fourth.size)
+
+        assertEquals(listOf("10:00", "10:20"), third.map { it.startTime })
+        assertEquals(listOf("10:45", "10:55", "11:15"), fourth.map { it.startTime })
+        assertEquals(listOf(null, "3"), third.map { it.buildingGroup })
+        assertEquals(listOf(null, "2", "3"), fourth.map { it.buildingGroup })
+    }
+
+    @Test
+    fun multiSectionCourseUsesSectionSpecificVariants() {
+        // 二教第 3-4 节：10:00 开始、11:40 结束（第 4 节比一教晚 10 分钟）
+        assertEquals(
+            StaggeredSchedule.TimeRange("10:00", "11:40"),
+            StaggeredSchedule.resolvedTimes(course("二教学楼(2301)", 3, 4), defaultSlots)
+        )
+        // 三教第 3-4 节：10:20 开始、12:00 结束
+        assertEquals(
+            StaggeredSchedule.TimeRange("10:20", "12:00"),
+            StaggeredSchedule.resolvedTimes(course("三教学楼(3415)", 3, 4), defaultSlots)
+        )
+        // 一教第 3-4 节：延续默认作息
+        assertEquals(
+            StaggeredSchedule.TimeRange("10:00", "11:30"),
+            StaggeredSchedule.resolvedTimes(course("一教学楼(1301)", 3, 4), defaultSlots)
+        )
     }
 }
