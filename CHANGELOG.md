@@ -10,9 +10,25 @@
 
 ### 新增
 
+- 一级页面（今日课表 / 课表 / 我的）改为横向分页容器，支持手指横滑切换，拖动跟手、松手自动吸附。
+- 课表页顶部新增「导入」入口，一键进入课表导入/导出。
+- 内置湖财主校区 12 节默认作息（`DefaultSchedule`），新建课表与首次启动自动使用。
+- 第 3、4 节错峰规则（`StaggeredSchedule`）：按教室号判定教学楼，课表、提醒、小组件统一换算。
+- 新增湖财（HUFE）离线学校适配资源。
+- 增加 `.gitattributes`、`CHANGELOG.md`、`VERSIONING.md` 与 `scripts/release.ps1` 发版脚本。
+
 ### 修改
 
+- 应用更名为「财院课程表」（繁体「財院課程表」、英文 `Caiyuan Schedule`），桌面端窗口标题同步。
+- 数据库版本 7 → 8，附带旧 13 节作息到新 12 节的纯数据迁移。
+- 课表页周次切换改为标题栏的周次选择器，左右横滑让给一级页面切换。
+- 恢复上游的 iOS 构建配置（本地 Windows 临时注释的依赖与 KSP 配置已还原）。
+
 ### 修复
+
+- 修复一级页面切换动画方向固定、与页面位置不符的问题：切换方向现在跟随页面在导航栏中的位置。
+- 修复从二级页面返回一级页面时可能滚到错误页面的问题。
+- 修复切换一级页面后导航栏残留上一页折叠状态的问题。
 
 ## [2.1.0] - 2026-11-01
 
@@ -22,6 +38,5 @@
 - 内容为上游 `XingHeYuZhuan/shiguangschedule` 的源码快照（zip 导入，不含上游提交历史）。
 - 对应 `versionCode = 36`、Android `versionName = 2.1.0`、桌面版 `appVersion = 2.1.0`。
 
-<!-- 首次推送到 GitHub 后，把下面的链接替换成你自己的仓库地址 -->
-[Unreleased]: https://github.com/你的用户名/shiguangschedule/compare/v2.1.0...HEAD
-[2.1.0]: https://github.com/你的用户名/shiguangschedule/releases/tag/v2.1.0
+[Unreleased]: https://github.com/caiga258/shiguangschedule/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/caiga258/shiguangschedule/releases/tag/v2.1.0

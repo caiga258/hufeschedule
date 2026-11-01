@@ -151,14 +151,14 @@ git switch -c hotfix/2.1.1 v2.1.0
 2. 关联并推送：
 
 ```bash
-git remote add origin https://github.com/<你的用户名>/shiguangschedule.git
+git remote add origin https://github.com/caiga258/shiguangschedule.git
 git push -u origin main
 git push origin v2.1.0
 ```
 
 首次 push 会弹出凭据窗口登录；不想配 SSH 就用 HTTPS + Personal Access Token（密码处填 token）。
 
-3. 回到 `CHANGELOG.md`，把底部两个链接里的 `你的用户名` 换成真实用户名，提交一次。
+3. 回到 `CHANGELOG.md`，把底部两个链接里的 `caiga258` 换成真实的 GitHub 用户名（如仓库名不同也一并改掉），提交一次。
 
 ---
 

@@ -20,6 +20,7 @@ google-services.json
 
 *.iml
 .idea/
+.run/
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
