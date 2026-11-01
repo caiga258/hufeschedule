@@ -53,19 +53,19 @@ import com.xingheyuzhuan.shiguangschedule.ui.theme.LocalIsDarkTheme
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_apply_to_all_schemes
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_confirm
-import shiguangschedule.shared.generated.resources.action_double_week
-import shiguangschedule.shared.generated.resources.action_select_all
-import shiguangschedule.shared.generated.resources.action_single_week
-import shiguangschedule.shared.generated.resources.check_24px
-import shiguangschedule.shared.generated.resources.label_course_weeks
-import shiguangschedule.shared.generated.resources.label_none
-import shiguangschedule.shared.generated.resources.text_weeks_selected
-import shiguangschedule.shared.generated.resources.title_select_color
-import shiguangschedule.shared.generated.resources.title_select_weeks
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_apply_to_all_schemes
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_confirm
+import hufeschedule.shared.generated.resources.action_double_week
+import hufeschedule.shared.generated.resources.action_select_all
+import hufeschedule.shared.generated.resources.action_single_week
+import hufeschedule.shared.generated.resources.check_24px
+import hufeschedule.shared.generated.resources.label_course_weeks
+import hufeschedule.shared.generated.resources.label_none
+import hufeschedule.shared.generated.resources.text_weeks_selected
+import hufeschedule.shared.generated.resources.title_select_color
+import hufeschedule.shared.generated.resources.title_select_weeks
 
 
 @Composable

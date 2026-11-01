@@ -51,19 +51,19 @@ import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.course_position_prefix
-import shiguangschedule.shared.generated.resources.course_teacher_prefix
-import shiguangschedule.shared.generated.resources.date_format_year_month_day
-import shiguangschedule.shared.generated.resources.label_credit
-import shiguangschedule.shared.generated.resources.label_remark
-import shiguangschedule.shared.generated.resources.status_semester_ended
-import shiguangschedule.shared.generated.resources.text_no_courses_today
-import shiguangschedule.shared.generated.resources.title_current_week
-import shiguangschedule.shared.generated.resources.title_semester_not_set
-import shiguangschedule.shared.generated.resources.title_today_schedule
-import shiguangschedule.shared.generated.resources.title_vacation_until_start
-import shiguangschedule.shared.generated.resources.week_days_full_names
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.course_position_prefix
+import hufeschedule.shared.generated.resources.course_teacher_prefix
+import hufeschedule.shared.generated.resources.date_format_year_month_day
+import hufeschedule.shared.generated.resources.label_credit
+import hufeschedule.shared.generated.resources.label_remark
+import hufeschedule.shared.generated.resources.status_semester_ended
+import hufeschedule.shared.generated.resources.text_no_courses_today
+import hufeschedule.shared.generated.resources.title_current_week
+import hufeschedule.shared.generated.resources.title_semester_not_set
+import hufeschedule.shared.generated.resources.title_today_schedule
+import hufeschedule.shared.generated.resources.title_vacation_until_start
+import hufeschedule.shared.generated.resources.week_days_full_names
 import kotlin.time.Clock
 
 private const val DEFAULT_TIME_ZERO = "00:00"

@@ -28,11 +28,11 @@ import androidx.compose.ui.zIndex
 import com.xingheyuzhuan.shiguangschedule.data.db.main.CourseWithWeeks
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.archive_24px
-import shiguangschedule.shared.generated.resources.close_24px
-import shiguangschedule.shared.generated.resources.floating_course_hint
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.archive_24px
+import hufeschedule.shared.generated.resources.close_24px
+import hufeschedule.shared.generated.resources.floating_course_hint
 
 @Composable
 fun FloatingCourseBar(

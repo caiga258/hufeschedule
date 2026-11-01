@@ -26,7 +26,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "shiguangschedule"
+rootProject.name = "hufeschedule"
 
 include(":androidApp")
 include(":shared")

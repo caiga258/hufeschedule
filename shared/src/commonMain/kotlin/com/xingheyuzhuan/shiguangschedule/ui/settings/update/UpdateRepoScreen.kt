@@ -48,20 +48,20 @@ import com.xingheyuzhuan.shiguangschedule.data.model.RepositoryInfo
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back
-import shiguangschedule.shared.generated.resources.action_update
-import shiguangschedule.shared.generated.resources.action_updating
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.label_password_or_token_value
-import shiguangschedule.shared.generated.resources.label_private_repo_credentials
-import shiguangschedule.shared.generated.resources.label_repo_branch
-import shiguangschedule.shared.generated.resources.label_repo_url
-import shiguangschedule.shared.generated.resources.label_select_repo
-import shiguangschedule.shared.generated.resources.label_username_or_token_key
-import shiguangschedule.shared.generated.resources.text_select_repo_hint
-import shiguangschedule.shared.generated.resources.title_update_log
-import shiguangschedule.shared.generated.resources.title_update_repo_screen
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back
+import hufeschedule.shared.generated.resources.action_update
+import hufeschedule.shared.generated.resources.action_updating
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.label_password_or_token_value
+import hufeschedule.shared.generated.resources.label_private_repo_credentials
+import hufeschedule.shared.generated.resources.label_repo_branch
+import hufeschedule.shared.generated.resources.label_repo_url
+import hufeschedule.shared.generated.resources.label_select_repo
+import hufeschedule.shared.generated.resources.label_username_or_token_key
+import hufeschedule.shared.generated.resources.text_select_repo_hint
+import hufeschedule.shared.generated.resources.title_update_log
+import hufeschedule.shared.generated.resources.title_update_repo_screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -43,18 +43,18 @@ import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
 import school_index.Adapter
 import school_index.AdapterCategory
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back_to_school_list
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.category_bachelor_associate
-import shiguangschedule.shared.generated.resources.category_general_tool
-import shiguangschedule.shared.generated.resources.category_other
-import shiguangschedule.shared.generated.resources.category_postgraduate
-import shiguangschedule.shared.generated.resources.info_24px
-import shiguangschedule.shared.generated.resources.label_contributor_format
-import shiguangschedule.shared.generated.resources.label_contributor_unknown
-import shiguangschedule.shared.generated.resources.text_no_adapter_for_category_school
-import shiguangschedule.shared.generated.resources.text_no_detailed_description
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back_to_school_list
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.category_bachelor_associate
+import hufeschedule.shared.generated.resources.category_general_tool
+import hufeschedule.shared.generated.resources.category_other
+import hufeschedule.shared.generated.resources.category_postgraduate
+import hufeschedule.shared.generated.resources.info_24px
+import hufeschedule.shared.generated.resources.label_contributor_format
+import hufeschedule.shared.generated.resources.label_contributor_unknown
+import hufeschedule.shared.generated.resources.text_no_adapter_for_category_school
+import hufeschedule.shared.generated.resources.text_no_detailed_description
 
 /**
  * 二级页面：显示特定学校和当前类别下的所有适配器列表。

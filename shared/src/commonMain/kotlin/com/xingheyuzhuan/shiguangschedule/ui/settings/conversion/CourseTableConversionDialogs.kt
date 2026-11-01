@@ -10,15 +10,15 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import com.xingheyuzhuan.shiguangschedule.ui.components.CourseTablePickerDialog
 import com.xingheyuzhuan.shiguangschedule.ui.components.NativeNumberPicker
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_next_step
-import shiguangschedule.shared.generated.resources.alarm_option_none
-import shiguangschedule.shared.generated.resources.alarm_option_on_time
-import shiguangschedule.shared.generated.resources.dialog_title_ics_export_settings
-import shiguangschedule.shared.generated.resources.dialog_title_select_export_table
-import shiguangschedule.shared.generated.resources.dialog_title_select_import_table
-import shiguangschedule.shared.generated.resources.label_select_alarm_time
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_next_step
+import hufeschedule.shared.generated.resources.alarm_option_none
+import hufeschedule.shared.generated.resources.alarm_option_on_time
+import hufeschedule.shared.generated.resources.dialog_title_ics_export_settings
+import hufeschedule.shared.generated.resources.dialog_title_select_export_table
+import hufeschedule.shared.generated.resources.dialog_title_select_import_table
+import hufeschedule.shared.generated.resources.label_select_alarm_time
 
 /**
  * 闹铃提醒时间选项的本地化内部封装模型。

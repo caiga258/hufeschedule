@@ -24,11 +24,11 @@ import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.text_loading_failed
-import shiguangschedule.shared.generated.resources.title_open_source_licenses
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.text_loading_failed
+import hufeschedule.shared.generated.resources.title_open_source_licenses
 
 // 定义加载状态密封接口
 private sealed interface ResourceState<out T> {

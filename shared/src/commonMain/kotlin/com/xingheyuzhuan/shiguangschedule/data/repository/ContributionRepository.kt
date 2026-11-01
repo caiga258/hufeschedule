@@ -6,7 +6,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.koin.core.annotation.Single
-import shiguangschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.Res
 
 
 /**

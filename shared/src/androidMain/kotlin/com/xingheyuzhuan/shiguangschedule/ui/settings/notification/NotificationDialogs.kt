@@ -24,21 +24,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.xingheyuzhuan.shiguangschedule.data.model.AutoControlMode
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_confirm
-import shiguangschedule.shared.generated.resources.action_go_to_settings
-import shiguangschedule.shared.generated.resources.auto_mode_dnd
-import shiguangschedule.shared.generated.resources.auto_mode_dnd_permission_warning
-import shiguangschedule.shared.generated.resources.auto_mode_off
-import shiguangschedule.shared.generated.resources.auto_mode_silent
-import shiguangschedule.shared.generated.resources.dialog_text_dnd_permission
-import shiguangschedule.shared.generated.resources.dialog_text_exact_alarm_permission
-import shiguangschedule.shared.generated.resources.dialog_title_auto_mode_selection
-import shiguangschedule.shared.generated.resources.dialog_title_dnd_permission
-import shiguangschedule.shared.generated.resources.dialog_title_exact_alarm_permission
-import shiguangschedule.shared.generated.resources.dialog_title_set_remind_time
-import shiguangschedule.shared.generated.resources.label_minutes_input
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_confirm
+import hufeschedule.shared.generated.resources.action_go_to_settings
+import hufeschedule.shared.generated.resources.auto_mode_dnd
+import hufeschedule.shared.generated.resources.auto_mode_dnd_permission_warning
+import hufeschedule.shared.generated.resources.auto_mode_off
+import hufeschedule.shared.generated.resources.auto_mode_silent
+import hufeschedule.shared.generated.resources.dialog_text_dnd_permission
+import hufeschedule.shared.generated.resources.dialog_text_exact_alarm_permission
+import hufeschedule.shared.generated.resources.dialog_title_auto_mode_selection
+import hufeschedule.shared.generated.resources.dialog_title_dnd_permission
+import hufeschedule.shared.generated.resources.dialog_title_exact_alarm_permission
+import hufeschedule.shared.generated.resources.dialog_title_set_remind_time
+import hufeschedule.shared.generated.resources.label_minutes_input
 
 /**
  * Android 专属的弹窗派发器

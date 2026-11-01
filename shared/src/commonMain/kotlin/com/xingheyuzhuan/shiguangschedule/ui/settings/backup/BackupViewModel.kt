@@ -29,14 +29,14 @@ import okio.openZip
 import okio.use
 import org.jetbrains.compose.resources.getString
 import org.koin.core.annotation.KoinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.backup_err_connect_failed
-import shiguangschedule.shared.generated.resources.backup_err_corrupted
-import shiguangschedule.shared.generated.resources.backup_err_empty
-import shiguangschedule.shared.generated.resources.backup_err_local_export_failed
-import shiguangschedule.shared.generated.resources.backup_err_restore_failed_prefix
-import shiguangschedule.shared.generated.resources.backup_err_upload_failed
-import shiguangschedule.shared.generated.resources.error_webdav_unconfigured
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.backup_err_connect_failed
+import hufeschedule.shared.generated.resources.backup_err_corrupted
+import hufeschedule.shared.generated.resources.backup_err_empty
+import hufeschedule.shared.generated.resources.backup_err_local_export_failed
+import hufeschedule.shared.generated.resources.backup_err_restore_failed_prefix
+import hufeschedule.shared.generated.resources.backup_err_upload_failed
+import hufeschedule.shared.generated.resources.error_webdav_unconfigured
 import kotlin.random.Random
 
 /**

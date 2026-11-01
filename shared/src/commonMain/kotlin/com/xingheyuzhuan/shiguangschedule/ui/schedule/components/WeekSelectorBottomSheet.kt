@@ -27,8 +27,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.title_select_week
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.title_select_week
 
 /**
  * 周选择器底部动作条。

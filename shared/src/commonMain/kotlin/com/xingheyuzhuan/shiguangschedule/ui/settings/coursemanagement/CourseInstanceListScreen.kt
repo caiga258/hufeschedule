@@ -43,23 +43,23 @@ import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_enter_selection_mode
-import shiguangschedule.shared.generated.resources.a11y_exit_selection_mode
-import shiguangschedule.shared.generated.resources.action_add
-import shiguangschedule.shared.generated.resources.action_deselect_all
-import shiguangschedule.shared.generated.resources.action_select_all
-import shiguangschedule.shared.generated.resources.add_24px
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.close_24px
-import shiguangschedule.shared.generated.resources.course_time_day_section_details_tweak
-import shiguangschedule.shared.generated.resources.course_time_day_time_details_tweak
-import shiguangschedule.shared.generated.resources.delete_24px
-import shiguangschedule.shared.generated.resources.done_all_24px
-import shiguangschedule.shared.generated.resources.label_weeks_format
-import shiguangschedule.shared.generated.resources.menu_open_24px
-import shiguangschedule.shared.generated.resources.title_selected_items_count
-import shiguangschedule.shared.generated.resources.week_days_full_names
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_enter_selection_mode
+import hufeschedule.shared.generated.resources.a11y_exit_selection_mode
+import hufeschedule.shared.generated.resources.action_add
+import hufeschedule.shared.generated.resources.action_deselect_all
+import hufeschedule.shared.generated.resources.action_select_all
+import hufeschedule.shared.generated.resources.add_24px
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.close_24px
+import hufeschedule.shared.generated.resources.course_time_day_section_details_tweak
+import hufeschedule.shared.generated.resources.course_time_day_time_details_tweak
+import hufeschedule.shared.generated.resources.delete_24px
+import hufeschedule.shared.generated.resources.done_all_24px
+import hufeschedule.shared.generated.resources.label_weeks_format
+import hufeschedule.shared.generated.resources.menu_open_24px
+import hufeschedule.shared.generated.resources.title_selected_items_count
+import hufeschedule.shared.generated.resources.week_days_full_names
 
 /**
  * 二级页面：展示特定课程名称下的所有实例，使用两列网格 (Detail View)。

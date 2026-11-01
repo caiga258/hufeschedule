@@ -33,8 +33,8 @@ import com.xingheyuzhuan.shiguangschedule.ui.components.ToastManager
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.*
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.*
 
 /**
  * 节次时间选择底部弹窗 (节次模式)

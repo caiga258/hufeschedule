@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_details
-import shiguangschedule.shared.generated.resources.chevron_right_24px
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_details
+import hufeschedule.shared.generated.resources.chevron_right_24px
 
 /**
  * 设置项单行通用 UI 组件

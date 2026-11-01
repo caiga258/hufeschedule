@@ -32,19 +32,19 @@ import com.xingheyuzhuan.shiguangschedule.data.model.StartScreen
 import com.xingheyuzhuan.shiguangschedule.tool.UpdatePlatform
 import com.xingheyuzhuan.shiguangschedule.tool.UpdateStatus
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_confirm
-import shiguangschedule.shared.generated.resources.btn_download_update
-import shiguangschedule.shared.generated.resources.dialog_checking_update
-import shiguangschedule.shared.generated.resources.dialog_current_version_latest
-import shiguangschedule.shared.generated.resources.dialog_new_version_found
-import shiguangschedule.shared.generated.resources.dialog_select_start_screen
-import shiguangschedule.shared.generated.resources.dialog_select_update_channel
-import shiguangschedule.shared.generated.resources.dialog_update_check_failed
-import shiguangschedule.shared.generated.resources.label_error_message
-import shiguangschedule.shared.generated.resources.label_version_prefix
-import shiguangschedule.shared.generated.resources.tip_please_wait
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_confirm
+import hufeschedule.shared.generated.resources.btn_download_update
+import hufeschedule.shared.generated.resources.dialog_checking_update
+import hufeschedule.shared.generated.resources.dialog_current_version_latest
+import hufeschedule.shared.generated.resources.dialog_new_version_found
+import hufeschedule.shared.generated.resources.dialog_select_start_screen
+import hufeschedule.shared.generated.resources.dialog_select_update_channel
+import hufeschedule.shared.generated.resources.dialog_update_check_failed
+import hufeschedule.shared.generated.resources.label_error_message
+import hufeschedule.shared.generated.resources.label_version_prefix
+import hufeschedule.shared.generated.resources.tip_please_wait
 
 /**
  * 启动页面选择弹窗

@@ -32,8 +32,8 @@ import com.xingheyuzhuan.shiguangschedule.data.model.schedule_style.ScheduleMode
 import com.xingheyuzhuan.shiguangschedule.ui.schedule.model.MergedCourseBlock
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringArrayResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.week_days_short_names
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.week_days_short_names
 import kotlin.math.roundToInt
 import kotlin.time.Duration.Companion.milliseconds
 

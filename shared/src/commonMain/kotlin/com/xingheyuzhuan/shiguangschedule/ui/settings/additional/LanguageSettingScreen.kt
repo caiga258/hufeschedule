@@ -25,13 +25,13 @@ import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.item_language_settings
-import shiguangschedule.shared.generated.resources.language_follow_system
-import shiguangschedule.shared.generated.resources.language_names
-import shiguangschedule.shared.generated.resources.language_tags
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.item_language_settings
+import hufeschedule.shared.generated.resources.language_follow_system
+import hufeschedule.shared.generated.resources.language_names
+import hufeschedule.shared.generated.resources.language_tags
 
 /**
  * 跨平台语言设置契约声明

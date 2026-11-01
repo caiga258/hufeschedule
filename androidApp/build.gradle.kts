@@ -98,7 +98,7 @@ androidComponents {
             }?.identifier ?: "universal"
 
             // 动态设置输出的 APK 文件名
-            output.outputFileName.set("shiguangschedule-v${versionName}-${abiFilter}-${buildType}.apk")
+            output.outputFileName.set("hufeschedule-v${versionName}-${abiFilter}-${buildType}.apk")
         }
     }
 }

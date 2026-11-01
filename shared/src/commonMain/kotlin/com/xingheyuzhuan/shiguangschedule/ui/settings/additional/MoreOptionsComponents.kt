@@ -22,11 +22,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.chevron_right_24px
-import shiguangschedule.shared.generated.resources.favorite_24px
-import shiguangschedule.shared.generated.resources.label_special_thanks
-import shiguangschedule.shared.generated.resources.text_acknowledgment_body
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.chevron_right_24px
+import hufeschedule.shared.generated.resources.favorite_24px
+import hufeschedule.shared.generated.resources.label_special_thanks
+import hufeschedule.shared.generated.resources.text_acknowledgment_body
 
 @Composable
 fun SettingListItem(

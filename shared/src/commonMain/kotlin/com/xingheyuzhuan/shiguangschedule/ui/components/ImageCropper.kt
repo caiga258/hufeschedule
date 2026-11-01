@@ -46,9 +46,9 @@ import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_confirm_crop
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_confirm_crop
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt

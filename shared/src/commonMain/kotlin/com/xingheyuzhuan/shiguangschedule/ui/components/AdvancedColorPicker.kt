@@ -47,18 +47,18 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_switch_color_mode
-import shiguangschedule.shared.generated.resources.color_picker_label_alpha
-import shiguangschedule.shared.generated.resources.color_picker_label_hue
-import shiguangschedule.shared.generated.resources.color_picker_label_saturation
-import shiguangschedule.shared.generated.resources.color_picker_label_value
-import shiguangschedule.shared.generated.resources.color_picker_mode_input
-import shiguangschedule.shared.generated.resources.color_picker_mode_visual
-import shiguangschedule.shared.generated.resources.color_picker_title_edit
-import shiguangschedule.shared.generated.resources.color_picker_title_precise
-import shiguangschedule.shared.generated.resources.edit_24px
-import shiguangschedule.shared.generated.resources.tune_24px
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_switch_color_mode
+import hufeschedule.shared.generated.resources.color_picker_label_alpha
+import hufeschedule.shared.generated.resources.color_picker_label_hue
+import hufeschedule.shared.generated.resources.color_picker_label_saturation
+import hufeschedule.shared.generated.resources.color_picker_label_value
+import hufeschedule.shared.generated.resources.color_picker_mode_input
+import hufeschedule.shared.generated.resources.color_picker_mode_visual
+import hufeschedule.shared.generated.resources.color_picker_title_edit
+import hufeschedule.shared.generated.resources.color_picker_title_precise
+import hufeschedule.shared.generated.resources.edit_24px
+import hufeschedule.shared.generated.resources.tune_24px
 import kotlin.time.Duration.Companion.milliseconds
 
 /**

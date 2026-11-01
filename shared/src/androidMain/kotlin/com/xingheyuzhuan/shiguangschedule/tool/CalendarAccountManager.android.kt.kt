@@ -19,9 +19,9 @@ import kotlinx.datetime.toInstant
 import org.jetbrains.compose.resources.getString
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.app_name
-import shiguangschedule.shared.generated.resources.course_teacher_prefix
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.app_name
+import hufeschedule.shared.generated.resources.course_teacher_prefix
 
 actual object CalendarAccountManager : KoinComponent {
 

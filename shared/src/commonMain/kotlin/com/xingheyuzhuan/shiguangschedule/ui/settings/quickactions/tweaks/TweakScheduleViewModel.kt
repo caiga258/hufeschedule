@@ -18,11 +18,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 import org.jetbrains.compose.resources.StringResource
 import org.koin.core.annotation.KoinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.error_tweak_failed
-import shiguangschedule.shared.generated.resources.error_tweak_no_table_or_semester
-import shiguangschedule.shared.generated.resources.error_tweak_same_day
-import shiguangschedule.shared.generated.resources.toast_tweak_success
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.error_tweak_failed
+import hufeschedule.shared.generated.resources.error_tweak_no_table_or_semester
+import hufeschedule.shared.generated.resources.error_tweak_same_day
+import hufeschedule.shared.generated.resources.toast_tweak_success
 import kotlin.time.Clock
 
 /**

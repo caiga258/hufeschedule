@@ -14,12 +14,12 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.xingheyuzhuan.shiguangschedule.data.model.AutoControlMode
 import com.xingheyuzhuan.shiguangschedule.ui.components.ToastManager
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.auto_mode_dnd
-import shiguangschedule.shared.generated.resources.auto_mode_off
-import shiguangschedule.shared.generated.resources.auto_mode_silent
-import shiguangschedule.shared.generated.resources.toast_enable_reminder_first
-import shiguangschedule.shared.generated.resources.toast_notification_permission_denied
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.auto_mode_dnd
+import hufeschedule.shared.generated.resources.auto_mode_off
+import hufeschedule.shared.generated.resources.auto_mode_silent
+import hufeschedule.shared.generated.resources.toast_enable_reminder_first
+import hufeschedule.shared.generated.resources.toast_notification_permission_denied
 
 /**
  * 平台通用的常规设置区块实现（Android 端）

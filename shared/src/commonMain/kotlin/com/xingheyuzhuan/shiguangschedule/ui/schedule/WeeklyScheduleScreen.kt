@@ -74,17 +74,17 @@ import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_import
-import shiguangschedule.shared.generated.resources.action_select_table
-import shiguangschedule.shared.generated.resources.arrow_drop_down_24px
-import shiguangschedule.shared.generated.resources.format_week_display
-import shiguangschedule.shared.generated.resources.snackbar_add_course_within_semester
-import shiguangschedule.shared.generated.resources.swap_horiz_24px
-import shiguangschedule.shared.generated.resources.title_current_week
-import shiguangschedule.shared.generated.resources.title_semester_not_set
-import shiguangschedule.shared.generated.resources.title_vacation
-import shiguangschedule.shared.generated.resources.title_vacation_until_start
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_import
+import hufeschedule.shared.generated.resources.action_select_table
+import hufeschedule.shared.generated.resources.arrow_drop_down_24px
+import hufeschedule.shared.generated.resources.format_week_display
+import hufeschedule.shared.generated.resources.snackbar_add_course_within_semester
+import hufeschedule.shared.generated.resources.swap_horiz_24px
+import hufeschedule.shared.generated.resources.title_current_week
+import hufeschedule.shared.generated.resources.title_semester_not_set
+import hufeschedule.shared.generated.resources.title_vacation
+import hufeschedule.shared.generated.resources.title_vacation_until_start
 import kotlin.time.Clock
 
 private const val INFINITE_PAGER_CENTER = Int.MAX_VALUE / 2

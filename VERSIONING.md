@@ -147,11 +147,11 @@ git switch -c hotfix/2.1.1 v2.1.0
 
 本仓库目前只有本机历史，没有远端。步骤：
 
-1. 在 GitHub 新建**空仓库**（不要勾选 README / .gitignore / License），仓库名建议 `shiguangschedule`。
+1. 在 GitHub 新建**空仓库**（不要勾选 README / .gitignore / License），仓库名用 `hufeschedule`。
 2. 关联并推送：
 
 ```bash
-git remote add origin https://github.com/caiga258/shiguangschedule.git
+git remote add origin https://github.com/caiga258/hufeschedule.git
 git push -u origin main
 git push origin v2.1.0
 ```

@@ -42,17 +42,17 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back_to_previous
-import shiguangschedule.shared.generated.resources.a11y_contributor_avatar
-import shiguangschedule.shared.generated.resources.action_retry
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.label_github
-import shiguangschedule.shared.generated.resources.tab_adapter_development
-import shiguangschedule.shared.generated.resources.tab_app_development
-import shiguangschedule.shared.generated.resources.text_loading_failed
-import shiguangschedule.shared.generated.resources.text_no_contributors
-import shiguangschedule.shared.generated.resources.title_contribution_list
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back_to_previous
+import hufeschedule.shared.generated.resources.a11y_contributor_avatar
+import hufeschedule.shared.generated.resources.action_retry
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.label_github
+import hufeschedule.shared.generated.resources.tab_adapter_development
+import hufeschedule.shared.generated.resources.tab_app_development
+import hufeschedule.shared.generated.resources.text_loading_failed
+import hufeschedule.shared.generated.resources.text_no_contributors
+import hufeschedule.shared.generated.resources.title_contribution_list
 
 /**
  * 贡献者列表主界面

@@ -24,25 +24,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.desc_compat_wearable_sync
-import shiguangschedule.shared.generated.resources.item_auto_mode
-import shiguangschedule.shared.generated.resources.item_background_and_autostart
-import shiguangschedule.shared.generated.resources.item_compat_wearable_sync
-import shiguangschedule.shared.generated.resources.item_course_reminder
-import shiguangschedule.shared.generated.resources.item_dnd_permission
-import shiguangschedule.shared.generated.resources.item_exact_alarm_permission
-import shiguangschedule.shared.generated.resources.item_ignore_battery_optimization
-import shiguangschedule.shared.generated.resources.item_remind_time_before
-import shiguangschedule.shared.generated.resources.remind_time_minutes_format
-import shiguangschedule.shared.generated.resources.section_title_general
-import shiguangschedule.shared.generated.resources.status_authorized
-import shiguangschedule.shared.generated.resources.status_disabled
-import shiguangschedule.shared.generated.resources.status_enabled
-import shiguangschedule.shared.generated.resources.status_unauthorized
-import shiguangschedule.shared.generated.resources.text_auto_mode_dependency
-import shiguangschedule.shared.generated.resources.text_permission_importance_detail
-import shiguangschedule.shared.generated.resources.text_permission_importance_title
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.desc_compat_wearable_sync
+import hufeschedule.shared.generated.resources.item_auto_mode
+import hufeschedule.shared.generated.resources.item_background_and_autostart
+import hufeschedule.shared.generated.resources.item_compat_wearable_sync
+import hufeschedule.shared.generated.resources.item_course_reminder
+import hufeschedule.shared.generated.resources.item_dnd_permission
+import hufeschedule.shared.generated.resources.item_exact_alarm_permission
+import hufeschedule.shared.generated.resources.item_ignore_battery_optimization
+import hufeschedule.shared.generated.resources.item_remind_time_before
+import hufeschedule.shared.generated.resources.remind_time_minutes_format
+import hufeschedule.shared.generated.resources.section_title_general
+import hufeschedule.shared.generated.resources.status_authorized
+import hufeschedule.shared.generated.resources.status_disabled
+import hufeschedule.shared.generated.resources.status_enabled
+import hufeschedule.shared.generated.resources.status_unauthorized
+import hufeschedule.shared.generated.resources.text_auto_mode_dependency
+import hufeschedule.shared.generated.resources.text_permission_importance_detail
+import hufeschedule.shared.generated.resources.text_permission_importance_title
 
 /**
  * 常规设置卡片 UI 组件 (Android 专属)

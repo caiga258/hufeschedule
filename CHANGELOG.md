@@ -39,5 +39,5 @@
 - 内容为上游 `XingHeYuZhuan/shiguangschedule` 的源码快照（zip 导入，不含上游提交历史）。
 - 对应 `versionCode = 36`、Android `versionName = 2.1.0`、桌面版 `appVersion = 2.1.0`。
 
-[Unreleased]: https://github.com/caiga258/shiguangschedule/compare/v2.1.0...HEAD
-[2.1.0]: https://github.com/caiga258/shiguangschedule/releases/tag/v2.1.0
+[Unreleased]: https://github.com/caiga258/hufeschedule/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/caiga258/hufeschedule/releases/tag/v2.1.0

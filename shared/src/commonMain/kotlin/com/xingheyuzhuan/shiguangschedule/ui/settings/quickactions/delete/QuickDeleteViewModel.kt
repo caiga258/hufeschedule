@@ -17,10 +17,10 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
 import org.jetbrains.compose.resources.StringResource
 import org.koin.core.annotation.KoinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.error_load_failed
-import shiguangschedule.shared.generated.resources.error_op_failed
-import shiguangschedule.shared.generated.resources.quick_delete_success
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.error_load_failed
+import hufeschedule.shared.generated.resources.error_op_failed
+import hufeschedule.shared.generated.resources.quick_delete_success
 
 /**
  * 带有格式化参数的资源字符串包装类，避免硬编码

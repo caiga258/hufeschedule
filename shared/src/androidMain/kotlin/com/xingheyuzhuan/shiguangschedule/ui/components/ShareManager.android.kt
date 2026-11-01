@@ -6,8 +6,8 @@ import kotlinx.coroutines.runBlocking
 import okio.Path.Companion.toPath
 import org.jetbrains.compose.resources.getString
 import org.koin.core.context.GlobalContext
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_share
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_share
 
 actual val isShareDialogSupported: Boolean = true
 

@@ -32,19 +32,19 @@ import com.xingheyuzhuan.shiguangschedule.ui.components.NativeNumberPicker
 import com.xingheyuzhuan.shiguangschedule.ui.components.ToastManager
 import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_add
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_save_changes
-import shiguangschedule.shared.generated.resources.dialog_title_add_time_slot
-import shiguangschedule.shared.generated.resources.dialog_title_edit_time_slot
-import shiguangschedule.shared.generated.resources.label_time_picker_end
-import shiguangschedule.shared.generated.resources.label_time_picker_hour
-import shiguangschedule.shared.generated.resources.label_time_picker_minute
-import shiguangschedule.shared.generated.resources.label_time_picker_start
-import shiguangschedule.shared.generated.resources.label_time_slot_alias
-import shiguangschedule.shared.generated.resources.toast_end_time_must_be_later
-import shiguangschedule.shared.generated.resources.toast_time_conflict
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_add
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_save_changes
+import hufeschedule.shared.generated.resources.dialog_title_add_time_slot
+import hufeschedule.shared.generated.resources.dialog_title_edit_time_slot
+import hufeschedule.shared.generated.resources.label_time_picker_end
+import hufeschedule.shared.generated.resources.label_time_picker_hour
+import hufeschedule.shared.generated.resources.label_time_picker_minute
+import hufeschedule.shared.generated.resources.label_time_picker_start
+import hufeschedule.shared.generated.resources.label_time_slot_alias
+import hufeschedule.shared.generated.resources.toast_end_time_must_be_later
+import hufeschedule.shared.generated.resources.toast_time_conflict
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

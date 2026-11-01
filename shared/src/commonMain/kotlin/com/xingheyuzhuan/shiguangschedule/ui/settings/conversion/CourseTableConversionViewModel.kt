@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 import okio.BufferedSource
 import org.jetbrains.compose.resources.getString
 import org.koin.core.annotation.KoinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.*
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.*
 
 /**
  * 课表导入/导出界面的 ViewModel。

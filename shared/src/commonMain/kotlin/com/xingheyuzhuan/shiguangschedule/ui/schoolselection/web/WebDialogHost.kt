@@ -23,8 +23,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.Flow
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.*
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.*
 
 /**
  * 宿主：监听 Bridge / 原生 WebView 事件，负责显示 JS 触发及平台抛出的 Compose 弹窗。

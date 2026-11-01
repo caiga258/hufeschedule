@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.koin.core.annotation.KoinViewModel
-import shiguangschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.Res
 
 @KoinViewModel
 open class UpdateRepoViewModel(

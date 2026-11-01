@@ -5,11 +5,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_share
-import shiguangschedule.shared.generated.resources.dialog_text_file_saved_share_prompt
-import shiguangschedule.shared.generated.resources.dialog_title_file_saved
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_share
+import hufeschedule.shared.generated.resources.dialog_text_file_saved_share_prompt
+import hufeschedule.shared.generated.resources.dialog_title_file_saved
 
 /**
  * 平台开关：

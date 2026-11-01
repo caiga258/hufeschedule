@@ -25,15 +25,15 @@ import com.xingheyuzhuan.shiguangschedule.data.db.main.TimeSlot
 import com.xingheyuzhuan.shiguangschedule.ui.components.ToastManager
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_delete_time_slot
-import shiguangschedule.shared.generated.resources.delete_24px
-import shiguangschedule.shared.generated.resources.label_break_duration_minutes
-import shiguangschedule.shared.generated.resources.label_class_duration_minutes
-import shiguangschedule.shared.generated.resources.time_slot_section_number
-import shiguangschedule.shared.generated.resources.title_default_duration_settings
-import shiguangschedule.shared.generated.resources.toast_break_duration_non_negative
-import shiguangschedule.shared.generated.resources.toast_class_duration_positive
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_delete_time_slot
+import hufeschedule.shared.generated.resources.delete_24px
+import hufeschedule.shared.generated.resources.label_break_duration_minutes
+import hufeschedule.shared.generated.resources.label_class_duration_minutes
+import hufeschedule.shared.generated.resources.time_slot_section_number
+import hufeschedule.shared.generated.resources.title_default_duration_settings
+import hufeschedule.shared.generated.resources.toast_break_duration_non_negative
+import hufeschedule.shared.generated.resources.toast_class_duration_positive
 
 @Composable
 fun DefaultDurationSettings(

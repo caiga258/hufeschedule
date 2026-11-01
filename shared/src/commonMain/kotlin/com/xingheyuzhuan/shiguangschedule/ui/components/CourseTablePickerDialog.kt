@@ -47,20 +47,20 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_add_new_table
-import shiguangschedule.shared.generated.resources.action_add
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_confirm
-import shiguangschedule.shared.generated.resources.add_24px
-import shiguangschedule.shared.generated.resources.course_table_created_at_prefix
-import shiguangschedule.shared.generated.resources.course_table_id_prefix
-import shiguangschedule.shared.generated.resources.dialog_title_add_table
-import shiguangschedule.shared.generated.resources.label_current
-import shiguangschedule.shared.generated.resources.label_table_name
-import shiguangschedule.shared.generated.resources.text_no_course_tables
-import shiguangschedule.shared.generated.resources.toast_add_table_success
-import shiguangschedule.shared.generated.resources.toast_name_empty
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_add_new_table
+import hufeschedule.shared.generated.resources.action_add
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_confirm
+import hufeschedule.shared.generated.resources.add_24px
+import hufeschedule.shared.generated.resources.course_table_created_at_prefix
+import hufeschedule.shared.generated.resources.course_table_id_prefix
+import hufeschedule.shared.generated.resources.dialog_title_add_table
+import hufeschedule.shared.generated.resources.label_current
+import hufeschedule.shared.generated.resources.label_table_name
+import hufeschedule.shared.generated.resources.text_no_course_tables
+import hufeschedule.shared.generated.resources.toast_add_table_success
+import hufeschedule.shared.generated.resources.toast_name_empty
 import kotlin.time.Instant
 
 /**

@@ -40,26 +40,26 @@ import com.xingheyuzhuan.shiguangschedule.ui.components.ToastManager
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back
-import shiguangschedule.shared.generated.resources.a11y_delete
-import shiguangschedule.shared.generated.resources.a11y_save
-import shiguangschedule.shared.generated.resources.action_add
-import shiguangschedule.shared.generated.resources.add_24px
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.check_24px
-import shiguangschedule.shared.generated.resources.common_action_continue_editing
-import shiguangschedule.shared.generated.resources.common_action_exit_without_save
-import shiguangschedule.shared.generated.resources.common_dialog_msg_unsaved_changes
-import shiguangschedule.shared.generated.resources.common_dialog_title_abandon_changes
-import shiguangschedule.shared.generated.resources.delete_24px
-import shiguangschedule.shared.generated.resources.label_course_name
-import shiguangschedule.shared.generated.resources.title_add_course
-import shiguangschedule.shared.generated.resources.title_edit_course
-import shiguangschedule.shared.generated.resources.toast_delete_success
-import shiguangschedule.shared.generated.resources.toast_name_empty
-import shiguangschedule.shared.generated.resources.toast_save_success
-import shiguangschedule.shared.generated.resources.toast_time_invalid
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back
+import hufeschedule.shared.generated.resources.a11y_delete
+import hufeschedule.shared.generated.resources.a11y_save
+import hufeschedule.shared.generated.resources.action_add
+import hufeschedule.shared.generated.resources.add_24px
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.check_24px
+import hufeschedule.shared.generated.resources.common_action_continue_editing
+import hufeschedule.shared.generated.resources.common_action_exit_without_save
+import hufeschedule.shared.generated.resources.common_dialog_msg_unsaved_changes
+import hufeschedule.shared.generated.resources.common_dialog_title_abandon_changes
+import hufeschedule.shared.generated.resources.delete_24px
+import hufeschedule.shared.generated.resources.label_course_name
+import hufeschedule.shared.generated.resources.title_add_course
+import hufeschedule.shared.generated.resources.title_edit_course
+import hufeschedule.shared.generated.resources.toast_delete_success
+import hufeschedule.shared.generated.resources.toast_name_empty
+import hufeschedule.shared.generated.resources.toast_save_success
+import hufeschedule.shared.generated.resources.toast_time_invalid
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

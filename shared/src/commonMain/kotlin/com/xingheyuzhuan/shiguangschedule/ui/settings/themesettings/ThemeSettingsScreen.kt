@@ -57,19 +57,19 @@ import com.xingheyuzhuan.shiguangschedule.ui.theme.supportsDynamicColor
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back
-import shiguangschedule.shared.generated.resources.action_reset
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.custom_color_title
-import shiguangschedule.shared.generated.resources.dark_primary_color
-import shiguangschedule.shared.generated.resources.dynamic_color_desc
-import shiguangschedule.shared.generated.resources.dynamic_color_title
-import shiguangschedule.shared.generated.resources.light_primary_color
-import shiguangschedule.shared.generated.resources.refresh_24px
-import shiguangschedule.shared.generated.resources.theme_color_hint
-import shiguangschedule.shared.generated.resources.theme_mode_label
-import shiguangschedule.shared.generated.resources.theme_settings_title
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back
+import hufeschedule.shared.generated.resources.action_reset
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.custom_color_title
+import hufeschedule.shared.generated.resources.dark_primary_color
+import hufeschedule.shared.generated.resources.dynamic_color_desc
+import hufeschedule.shared.generated.resources.dynamic_color_title
+import hufeschedule.shared.generated.resources.light_primary_color
+import hufeschedule.shared.generated.resources.refresh_24px
+import hufeschedule.shared.generated.resources.theme_color_hint
+import hufeschedule.shared.generated.resources.theme_mode_label
+import hufeschedule.shared.generated.resources.theme_settings_title
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

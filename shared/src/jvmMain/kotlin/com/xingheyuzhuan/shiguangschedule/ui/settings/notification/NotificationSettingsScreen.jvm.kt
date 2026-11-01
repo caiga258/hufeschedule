@@ -25,15 +25,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.action_cancel
-import shiguangschedule.shared.generated.resources.action_confirm
-import shiguangschedule.shared.generated.resources.dialog_title_set_remind_time
-import shiguangschedule.shared.generated.resources.item_course_reminder
-import shiguangschedule.shared.generated.resources.item_remind_time_before
-import shiguangschedule.shared.generated.resources.label_minutes_input
-import shiguangschedule.shared.generated.resources.remind_time_minutes_format
-import shiguangschedule.shared.generated.resources.section_title_general
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.action_cancel
+import hufeschedule.shared.generated.resources.action_confirm
+import hufeschedule.shared.generated.resources.dialog_title_set_remind_time
+import hufeschedule.shared.generated.resources.item_course_reminder
+import hufeschedule.shared.generated.resources.item_remind_time_before
+import hufeschedule.shared.generated.resources.label_minutes_input
+import hufeschedule.shared.generated.resources.remind_time_minutes_format
+import hufeschedule.shared.generated.resources.section_title_general
 
 /**
  * 常规设置区域（JVM 平台实现）

@@ -62,16 +62,16 @@ import com.xingheyuzhuan.shiguangschedule.Destination
 import com.xingheyuzhuan.shiguangschedule.MainTabDestinations
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.account_circle_24px
-import shiguangschedule.shared.generated.resources.account_circle_filled_24px
-import shiguangschedule.shared.generated.resources.nav_course_schedule
-import shiguangschedule.shared.generated.resources.nav_settings
-import shiguangschedule.shared.generated.resources.nav_today_schedule
-import shiguangschedule.shared.generated.resources.view_agenda_24px
-import shiguangschedule.shared.generated.resources.view_agenda_filled_24px
-import shiguangschedule.shared.generated.resources.view_week_24px
-import shiguangschedule.shared.generated.resources.view_week_filled_24px
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.account_circle_24px
+import hufeschedule.shared.generated.resources.account_circle_filled_24px
+import hufeschedule.shared.generated.resources.nav_course_schedule
+import hufeschedule.shared.generated.resources.nav_settings
+import hufeschedule.shared.generated.resources.nav_today_schedule
+import hufeschedule.shared.generated.resources.view_agenda_24px
+import hufeschedule.shared.generated.resources.view_agenda_filled_24px
+import hufeschedule.shared.generated.resources.view_week_24px
+import hufeschedule.shared.generated.resources.view_week_filled_24px
 
 @Immutable
 private data class NavItemData(

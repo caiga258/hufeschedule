@@ -47,24 +47,24 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back
-import shiguangschedule.shared.generated.resources.a11y_cancel_selection
-import shiguangschedule.shared.generated.resources.a11y_delete
-import shiguangschedule.shared.generated.resources.a11y_enter_selection_mode
-import shiguangschedule.shared.generated.resources.a11y_exit_selection_mode
-import shiguangschedule.shared.generated.resources.action_add
-import shiguangschedule.shared.generated.resources.action_deselect_all
-import shiguangschedule.shared.generated.resources.action_select_all
-import shiguangschedule.shared.generated.resources.add_24px
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.close_24px
-import shiguangschedule.shared.generated.resources.delete_24px
-import shiguangschedule.shared.generated.resources.done_all_24px
-import shiguangschedule.shared.generated.resources.item_course_management
-import shiguangschedule.shared.generated.resources.menu_open_24px
-import shiguangschedule.shared.generated.resources.text_no_unique_courses_hint
-import shiguangschedule.shared.generated.resources.title_selected_items_count
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back
+import hufeschedule.shared.generated.resources.a11y_cancel_selection
+import hufeschedule.shared.generated.resources.a11y_delete
+import hufeschedule.shared.generated.resources.a11y_enter_selection_mode
+import hufeschedule.shared.generated.resources.a11y_exit_selection_mode
+import hufeschedule.shared.generated.resources.action_add
+import hufeschedule.shared.generated.resources.action_deselect_all
+import hufeschedule.shared.generated.resources.action_select_all
+import hufeschedule.shared.generated.resources.add_24px
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.close_24px
+import hufeschedule.shared.generated.resources.delete_24px
+import hufeschedule.shared.generated.resources.done_all_24px
+import hufeschedule.shared.generated.resources.item_course_management
+import hufeschedule.shared.generated.resources.menu_open_24px
+import hufeschedule.shared.generated.resources.text_no_unique_courses_hint
+import hufeschedule.shared.generated.resources.title_selected_items_count
 
 /**
  * 一级页面：展示所有不重复的课程名称列表 (Master View)。

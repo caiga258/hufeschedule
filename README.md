@@ -82,6 +82,7 @@
 ## 下载与安装
 
 1. 在仓库的 **Releases** 页面下载与手机架构匹配的 APK：
+   <https://github.com/caiga258/hufeschedule/releases>
    - `arm64-v8a`：绝大多数近年手机（**一般选这个**）
    - `armeabi-v7a`：较老的 32 位机型
    - `x86_64`：模拟器 / 部分平板

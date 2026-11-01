@@ -14,7 +14,7 @@ import okio.use
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
-import shiguangschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.Res
 
 /**
  * 资源与缓存初始化管理器。

@@ -14,7 +14,7 @@ kotlin {
 }
 
 val appVersion = "2.1.0"
-val appBaseName = "shiguangschedule"
+val appBaseName = "hufeschedule"
 
 dependencies {
     implementation(project(":shared"))
@@ -42,7 +42,7 @@ compose.desktop {
                 TargetFormat.Dmg, TargetFormat.Pkg,
                 TargetFormat.Deb, TargetFormat.Rpm
             )
-            packageName = "ShiguangSchedule"
+            packageName = "HufeSchedule"
             packageVersion = appVersion
 
             modules("jdk.unsupported")

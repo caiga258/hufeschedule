@@ -29,16 +29,16 @@ import androidx.compose.ui.unit.dp
 import com.xingheyuzhuan.shiguangschedule.Destination
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.chevron_right_24px
-import shiguangschedule.shared.generated.resources.desc_schedule_tweak
-import shiguangschedule.shared.generated.resources.item_quick_actions
-import shiguangschedule.shared.generated.resources.item_quick_delete
-import shiguangschedule.shared.generated.resources.item_schedule_tweak
-import shiguangschedule.shared.generated.resources.label_quick_action_category_schedule
-import shiguangschedule.shared.generated.resources.quick_delete_subtitle
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.chevron_right_24px
+import hufeschedule.shared.generated.resources.desc_schedule_tweak
+import hufeschedule.shared.generated.resources.item_quick_actions
+import hufeschedule.shared.generated.resources.item_quick_delete
+import hufeschedule.shared.generated.resources.item_schedule_tweak
+import hufeschedule.shared.generated.resources.label_quick_action_category_schedule
+import hufeschedule.shared.generated.resources.quick_delete_subtitle
 
 /**
  * 快捷操作二级页面

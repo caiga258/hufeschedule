@@ -35,11 +35,11 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_app_icon
-import shiguangschedule.shared.generated.resources.developer_mode_24px
-import shiguangschedule.shared.generated.resources.ic_launcher_foreground
-import shiguangschedule.shared.generated.resources.item_developer_options
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_app_icon
+import hufeschedule.shared.generated.resources.developer_mode_24px
+import hufeschedule.shared.generated.resources.ic_launcher_foreground
+import hufeschedule.shared.generated.resources.item_developer_options
 
 // 图标背景颜色定义
 private val NormalIconBgColor = Color(0xFF73CAF8)

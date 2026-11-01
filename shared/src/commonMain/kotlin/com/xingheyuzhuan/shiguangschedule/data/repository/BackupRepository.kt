@@ -17,11 +17,11 @@ import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.getString
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.backup_err_corrupted
-import shiguangschedule.shared.generated.resources.backup_err_empty
-import shiguangschedule.shared.generated.resources.backup_err_version_too_new
-import shiguangschedule.shared.generated.resources.backup_err_version_too_old
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.backup_err_corrupted
+import hufeschedule.shared.generated.resources.backup_err_empty
+import hufeschedule.shared.generated.resources.backup_err_version_too_new
+import hufeschedule.shared.generated.resources.backup_err_version_too_old
 import kotlin.time.Clock
 
 /**

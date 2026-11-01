@@ -11,12 +11,12 @@ import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.StringResource
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.nav_course_schedule
-import shiguangschedule.shared.generated.resources.nav_today_schedule
-import shiguangschedule.shared.generated.resources.theme_dark
-import shiguangschedule.shared.generated.resources.theme_follow_system
-import shiguangschedule.shared.generated.resources.theme_light
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.nav_course_schedule
+import hufeschedule.shared.generated.resources.nav_today_schedule
+import hufeschedule.shared.generated.resources.theme_dark
+import hufeschedule.shared.generated.resources.theme_follow_system
+import hufeschedule.shared.generated.resources.theme_light
 
 /**
  * 通用的深浅色配置包装类

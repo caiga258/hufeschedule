@@ -15,8 +15,8 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.number
 import kotlinx.datetime.plus
 import org.jetbrains.compose.resources.getString
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.course_teacher_prefix
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.course_teacher_prefix
 import kotlin.time.Clock
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi

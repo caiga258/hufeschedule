@@ -62,11 +62,11 @@ import com.xingheyuzhuan.shiguangschedule.ui.theme.rememberColorScheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import shiguangschedule.shared.generated.resources.Res
-import shiguangschedule.shared.generated.resources.a11y_back
-import shiguangschedule.shared.generated.resources.arrow_back_24px
-import shiguangschedule.shared.generated.resources.contrast_24px
-import shiguangschedule.shared.generated.resources.item_personalization
+import hufeschedule.shared.generated.resources.Res
+import hufeschedule.shared.generated.resources.a11y_back
+import hufeschedule.shared.generated.resources.arrow_back_24px
+import hufeschedule.shared.generated.resources.contrast_24px
+import hufeschedule.shared.generated.resources.item_personalization
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
