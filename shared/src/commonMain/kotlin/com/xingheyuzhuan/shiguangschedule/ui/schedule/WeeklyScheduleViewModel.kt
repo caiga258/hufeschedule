@@ -199,7 +199,7 @@ class WeeklyScheduleViewModel(
 
                 WeeklyScheduleUiState(
                     style = configPkg.style,
-                    showWeekends = config?.showWeekends ?: false,
+                    showWeekends = config?.showWeekends ?: true,
                     totalWeeks = totalWeeks,
                     courseCache = cache,
                     currentMergedCourses = cache[configPkg.mondayDate.toString()] ?: emptyList(),

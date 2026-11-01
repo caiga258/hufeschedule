@@ -29,7 +29,7 @@ data class MergedCourseBlock(
 
 data class WeeklyScheduleUiState(
     val style: ScheduleGridStyle = ScheduleGridStyle(),
-    val showWeekends: Boolean = false,
+    val showWeekends: Boolean = true,
     val totalWeeks: Int = 20,
     val timeSlots: List<TimeSlot> = emptyList(),
     val displayRows: List<StaggeredSchedule.DisplayRow> = emptyList(),

@@ -328,7 +328,7 @@ class CourseConversionRepository(
         val currentConfig = appSettingsRepository.getCourseConfigOnce(tableId)
         val updatedConfig = CourseTableConfig(
             courseTableId = tableId,
-            showWeekends = currentConfig?.showWeekends ?: false,
+            showWeekends = currentConfig?.showWeekends ?: true,
             semesterStartDate = configJsonModel.semesterStartDate,
             semesterTotalWeeks = configJsonModel.semesterTotalWeeks,
             firstDayOfWeek = configJsonModel.firstDayOfWeek

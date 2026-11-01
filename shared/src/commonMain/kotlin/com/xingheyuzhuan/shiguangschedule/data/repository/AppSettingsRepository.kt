@@ -60,7 +60,8 @@ class AppSettingsRepository(
      */
     private val COURSE_CONFIG_TEMPLATE = CourseTableConfig(
         courseTableId = "",
-        showWeekends = false,
+        // 湖财存在周末课程，默认就显示周六、周日两列
+        showWeekends = true,
         // 湖财默认 9 月 5 日开学，缺省时直接用它，用户仍可在设置里修改
         semesterStartDate = DefaultSemester.defaultStartDate(),
         semesterTotalWeeks = 20,

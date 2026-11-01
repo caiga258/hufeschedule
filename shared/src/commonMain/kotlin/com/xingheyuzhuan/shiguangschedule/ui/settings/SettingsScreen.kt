@@ -140,7 +140,7 @@ fun SettingsScreen(
             val courseTableConfig = uiState.courseConfig
             val displayCurrentWeek = uiState.currentWeek
 
-            val showWeekends = courseTableConfig?.showWeekends ?: false
+            val showWeekends = courseTableConfig?.showWeekends ?: true
             val semesterStartDateString = courseTableConfig?.semesterStartDate
             val semesterTotalWeeks = courseTableConfig?.semesterTotalWeeks ?: 20
             val firstDayOfWeekInt = courseTableConfig?.firstDayOfWeek ?: DayOfWeek.MONDAY.isoDayNumber

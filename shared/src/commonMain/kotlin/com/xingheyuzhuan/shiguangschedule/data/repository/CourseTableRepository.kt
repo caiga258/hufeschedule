@@ -64,7 +64,7 @@ class CourseTableRepository(
 
         val defaultConfig = CourseTableConfig(
             courseTableId = tableId,
-            showWeekends = false,
+            showWeekends = true,
             semesterStartDate = DefaultSemester.defaultStartDate(),
             semesterTotalWeeks = 20,
             firstDayOfWeek = 1
