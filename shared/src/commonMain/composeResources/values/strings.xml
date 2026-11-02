@@ -371,7 +371,7 @@
     <string name="a11y_navigate">跳转</string>
     <string name="a11y_acknowledgment">鸣谢</string>
     <string name="label_special_thanks">特别鸣谢</string>
-    <string name="text_acknowledgment_body">衷心感谢为本应用软件和教务适配代码仓库的开发和维护做出贡献的每一位开发者。您的奉献是应用持续更新和完善的动力！</string>
+    <string name="text_acknowledgment_body">本应用是湖南财政经济学院的定制版课程表（财院特制课表）。特别感谢开源项目「拾光课程表」（XingHeYuZhuan/shiguangschedule）的作者与维护者：本项目的界面、课表导入、提醒与桌面小组件等基础能力，均来自其开源的 v2.1.0 代码。</string>
     <string name="item_github_repo">本项目GitHub仓库</string>
     <string name="item_open_source_licenses">查看开源许可证</string>
     <string name="title_open_source_licenses">开源许可证</string>
@@ -549,6 +549,26 @@
     <string name="label_hide_date">隐藏日期</string>
     <string name="title_widget_style">小组件样式</string>
     <string name="title_theme_seed_color">主题种子色</string>
+
+    <!-- 桌面挂件（Android 一键添加） -->
+    <string name="title_widget_pin">添加到桌面</string>
+    <string name="text_widget_pin_desc">一键把课表挂件放到主屏幕，不用再去桌面里翻找。</string>
+    <string name="action_widget_pin_add">添加</string>
+    <string name="text_widget_pin_fallback">没有弹出提示？长按桌面空白处 → 组件 → 滑到底部「应用挂件」→ 财院课程表。</string>
+    <string name="title_widget_pin_manual">手动添加挂件</string>
+    <string name="text_widget_pin_manual_steps">系统没有弹出添加提示。「%1$s」请这样添加：长按桌面空白处 → 组件/小部件 → 找到「财院课程表」→ 长按「%1$s」拖到桌面。</string>
+    <string name="title_widget_pin_pick">选择挂件类型</string>
+    <string name="text_widget_pin_picker_row">选择挂件类型</string>
+    <string name="text_widget_pin_steps_vivo">一键添加被系统拦下了。「%1$s」请这样添加：长按桌面空白处 → 组件 → 滑到底部「应用挂件」→ 财院课程表 → 长按「%1$s」拖到桌面。</string>
+    <string name="text_widget_pin_steps_oppo">一键添加被系统拦下了。「%1$s」请这样添加：长按桌面空白处 → 添加 → 小组件（插件）→ 找到「财院课程表」→ 长按「%1$s」拖到桌面。</string>
+    <string name="text_widget_pin_steps_xiaomi">一键添加被系统拦下了。「%1$s」请这样添加：长按桌面空白处 → 添加小部件 → 搜索「财院课程表」→ 长按「%1$s」拖到桌面。</string>
+    <string name="text_widget_pin_steps_huawei">一键添加被系统拦下了。「%1$s」请这样添加：长按桌面空白处 → 窗口小工具（服务卡片）→ 找到「财院课程表」→ 长按「%1$s」拖到桌面。</string>
+    <string name="action_go_home">去桌面</string>
+    <string name="toast_widget_pin_adding">正在请求添加到桌面…</string>
+    <string name="widget_pin_tiny">超小课程 2×1</string>
+    <string name="widget_pin_compact">紧凑课程 2×2</string>
+    <string name="widget_pin_double_days">近日课程 4×2</string>
+    <string name="widget_pin_vertical">垂直列表 4×N</string>
 
     <!-- 快捷操作 -->
     <string name="item_quick_actions">快捷操作</string>

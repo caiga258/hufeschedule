@@ -325,7 +325,7 @@
     <string name="a11y_navigate">Navigate</string>
     <string name="a11y_acknowledgment">Acknowledgment</string>
     <string name="label_special_thanks">Special thanks</string>
-    <string name="text_acknowledgment_body">Heartfelt thanks to every developer who contributed to this app and the academic system adapter repository. Your dedication drives continuous improvement!</string>
+    <string name="text_acknowledgment_body">This app is the customised timetable app for Hunan University of Finance and Economics (HUFE). Special thanks to the author and maintainers of the open-source project 拾光课程表 (XingHeYuZhuan/shiguangschedule): the UI, timetable import, reminders and home-screen widgets of this project are all based on their open-source v2.1.0 code.</string>
     <string name="item_github_repo">Project GitHub repository</string>
     <string name="item_open_source_licenses">View open source licenses</string>
     <string name="title_open_source_licenses">Open source licenses</string>
@@ -604,6 +604,26 @@
     <string name="label_hide_date">Hide date</string>
     <string name="title_widget_style">Widget style</string>
     <string name="title_theme_seed_color">Theme seed color</string>
+
+    <!-- Home screen widget (one-tap add, Android) -->
+    <string name="title_widget_pin">Add to home screen</string>
+    <string name="text_widget_pin_desc">Pin a timetable widget to your home screen without digging through the widget picker.</string>
+    <string name="action_widget_pin_add">Add</string>
+    <string name="text_widget_pin_fallback">No prompt? Long-press an empty area of the home screen → Widgets → scroll to the bottom "App widgets" → 财院课程表.</string>
+    <string name="title_widget_pin_manual">Add the widget manually</string>
+    <string name="text_widget_pin_manual_steps">The system did not show the add prompt. To add "%1$s": long-press an empty area of the home screen → Widgets → find 财院课程表 → long-press "%1$s" and drag it onto the screen.</string>
+    <string name="title_widget_pin_pick">Choose a widget type</string>
+    <string name="text_widget_pin_picker_row">Choose a widget type</string>
+    <string name="text_widget_pin_steps_vivo">The system blocked one-tap adding. To add "%1$s": long-press an empty area of the home screen → Widgets → scroll to the bottom "App widgets" → 财院课程表 → long-press "%1$s" and drag it onto the screen.</string>
+    <string name="text_widget_pin_steps_oppo">The system blocked one-tap adding. To add "%1$s": long-press an empty area of the home screen → Add → Widgets (plugins) → find 财院课程表 → long-press "%1$s" and drag it onto the screen.</string>
+    <string name="text_widget_pin_steps_xiaomi">The system blocked one-tap adding. To add "%1$s": long-press an empty area of the home screen → Add widgets → search 财院课程表 → long-press "%1$s" and drag it onto the screen.</string>
+    <string name="text_widget_pin_steps_huawei">The system blocked one-tap adding. To add "%1$s": long-press an empty area of the home screen → Widgets (service cards) → find 财院课程表 → long-press "%1$s" and drag it onto the screen.</string>
+    <string name="action_go_home">Go to home screen</string>
+    <string name="toast_widget_pin_adding">Requesting to add to the home screen…</string>
+    <string name="widget_pin_tiny">Tiny 2x1</string>
+    <string name="widget_pin_compact">Compact 2x2</string>
+    <string name="widget_pin_double_days">Recent Days 4x2</string>
+    <string name="widget_pin_vertical">Vertical list 4xN</string>
     <string name="style_category_other">Other styles</string>
     <string name="backup_err_version_too_old">The backup file version is too old and is no longer supported.</string>
     <string name="label_credit">Credit</string>

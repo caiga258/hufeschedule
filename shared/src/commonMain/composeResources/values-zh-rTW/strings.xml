@@ -321,7 +321,7 @@
     <string name="a11y_navigate">跳轉</string>
     <string name="a11y_acknowledgment">鳴謝</string>
     <string name="label_special_thanks">特別鳴謝</string>
-    <string name="text_acknowledgment_body">衷心感謝為本應用軟體和教務適配程式碼倉庫的開發和維護做出貢獻的每一位開發者。您的奉獻是應用程式持續更新和完善的動力！</string>
+    <string name="text_acknowledgment_body">本應用程式是湖南財政經濟學院的定製版課表（財院特製課表）。特別感謝開源專案「拾光課程表」（XingHeYuZhuan/shiguangschedule）的作者與維護者：本專案的介面、課表匯入、提醒與桌面小工具等基礎能力，均來自其開源的 v2.1.0 程式碼。</string>
     <string name="item_github_repo">本專案GitHub倉庫</string>
     <string name="item_open_source_licenses">檢視開放原始碼授權</string>
     <string name="title_open_source_licenses">開放原始碼授權</string>
@@ -604,6 +604,26 @@
     <string name="label_hide_date">隱藏日期</string>
     <string name="title_widget_style">小工具樣式</string>
     <string name="title_theme_seed_color">主題種子色</string>
+
+    <!-- 桌面小工具（Android 一鍵加入） -->
+    <string name="title_widget_pin">加入主畫面</string>
+    <string name="text_widget_pin_desc">一鍵把課表小工具放到主畫面，不用再去桌面裡翻找。</string>
+    <string name="action_widget_pin_add">加入</string>
+    <string name="text_widget_pin_fallback">沒有跳出提示？長按桌面空白處 → 小工具 → 滑到底部「應用程式小工具」→ 財院課程表。</string>
+    <string name="title_widget_pin_manual">手動加入小工具</string>
+    <string name="text_widget_pin_manual_steps">系統沒有跳出加入提示。「%1$s」請這樣加入：長按桌面空白處 → 小工具/小部件 → 找到「財院課程表」→ 長按「%1$s」拖到桌面。</string>
+    <string name="title_widget_pin_pick">選擇小工具類型</string>
+    <string name="text_widget_pin_picker_row">選擇小工具類型</string>
+    <string name="text_widget_pin_steps_vivo">一鍵加入被系統擋下了。「%1$s」請這樣加入：長按桌面空白處 → 小工具 → 滑到底部「應用程式小工具」→ 財院課程表 → 長按「%1$s」拖到桌面。</string>
+    <string name="text_widget_pin_steps_oppo">一鍵加入被系統擋下了。「%1$s」請這樣加入：長按桌面空白處 → 新增 → 小工具（外掛）→ 找到「財院課程表」→ 長按「%1$s」拖到桌面。</string>
+    <string name="text_widget_pin_steps_xiaomi">一鍵加入被系統擋下了。「%1$s」請這樣加入：長按桌面空白處 → 新增小工具 → 搜尋「財院課程表」→ 長按「%1$s」拖到桌面。</string>
+    <string name="text_widget_pin_steps_huawei">一鍵加入被系統擋下了。「%1$s」請這樣加入：長按桌面空白處 → 視窗小工具（服務卡片）→ 找到「財院課程表」→ 長按「%1$s」拖到桌面。</string>
+    <string name="action_go_home">回桌面</string>
+    <string name="toast_widget_pin_adding">正在請求加入主畫面…</string>
+    <string name="widget_pin_tiny">超小課程 2×1</string>
+    <string name="widget_pin_compact">緊湊課程 2×2</string>
+    <string name="widget_pin_double_days">近日課程 4×2</string>
+    <string name="widget_pin_vertical">垂直列表 4×N</string>
     <string name="style_category_other">其他樣式</string>
     <string name="backup_err_version_too_old">備份檔案版本過舊，暫不支援還原</string>
     <string name="label_credit">學分</string>

@@ -65,7 +65,7 @@ import hufeschedule.shared.generated.resources.theme_settings_title
 import hufeschedule.shared.generated.resources.title_more_options
 import hufeschedule.shared.generated.resources.update_24px
 
-private const val GITHUB_REPO_URL = "https://github.com/XingHeYuZhuan/shiguangschedule"
+private const val GITHUB_REPO_URL = "https://github.com/caiga258/hufeschedule"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

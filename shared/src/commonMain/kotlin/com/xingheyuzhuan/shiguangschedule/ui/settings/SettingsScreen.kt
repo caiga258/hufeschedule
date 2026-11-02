@@ -46,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.xingheyuzhuan.shiguangschedule.Destination
 import com.xingheyuzhuan.shiguangschedule.ui.components.NativeNumberPicker
+import com.xingheyuzhuan.shiguangschedule.ui.settings.style.widget.PlatformWidgetPinSection
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -305,6 +306,9 @@ private fun GeneralSettingsSection(
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold
             )
+
+            // 一键把挂件固定到桌面（Android 走 requestPinAppWidget，其他平台为空实现）
+            PlatformWidgetPinSection()
 
             SettingItem(
                 title = stringResource(Res.string.item_show_non_current_week),
